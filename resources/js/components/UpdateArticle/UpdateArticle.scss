@@ -1,0 +1,116 @@
+#navigateTo,
+#pageIndex {
+  height: 35px;
+}
+
+#pageIndex {
+  width: 40px;
+  box-sizing: border-box;
+}
+
+.outlined {
+  overflow: visible !important;
+}
+
+.inline_label {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+
+  & > label {
+    margin-bottom: 0;
+  }
+}
+
+.action_btn_group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.table_container {
+  position: relative;
+
+  .table_btn {
+    position: absolute;
+    left: 11px;
+    bottom: 11px;
+    z-index: 1;
+  }
+}
+
+.table_budget_delete_btn {
+  font-size: 26px;
+  color: #6c757d;
+
+  &:hover {
+    color: #5a6268;
+  }
+}
+
+#budget_edit_table,
+#budget_add_table {
+  & > .smart-container {
+    overflow: visible;
+  }
+  th {
+    overflow: visible;
+  }
+}
+
+.budget_add_submit_btn {
+  color: #007bff;
+  font-size: 26px;
+  position: absolute;
+  top: 66px;
+  z-index: 101;
+  padding-left: 12px;
+  &:hover {
+    color: #0069d9;
+  }
+}
+
+.table_add_input {
+  padding: 8px 15px;
+  position: absolute;
+  z-index: 101;
+  top: 66px;
+  margin: 0 12px;
+
+  &:focus {
+    border-width: 2px;
+    border-color: #007bff;
+    box-shadow: none;
+  }
+}
+
+.input_table_container {
+  position: relative;
+}
+
+#add_construction_input {
+  width: 256px;
+  /* height: 56px; */
+  position: absolute;
+  z-index: 101;
+  top: 66px;
+  left: 0;
+  margin: 0 12px;
+}
+
+.smart-table td {
+  overflow: visible;
+}
+
+#edit_budget_construction_container {
+  padding: 12px;
+}
+
+// #add_cost_input {
+//   width: 256px;
+//   /* height: 56px; */
+//   position: absolute;
+//   z-index: 999;
+//   top: 66px;
+//   margin: 0 12px;
+// }

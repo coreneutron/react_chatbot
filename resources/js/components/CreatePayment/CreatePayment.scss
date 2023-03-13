@@ -1,0 +1,25 @@
+.custom_autocomplete_input {
+  height: auto;
+  width: 100%;
+  .smart-action-button {
+    padding: 10px 20px;
+  }
+}
+
+.custom_date_input {
+  height: auto;
+  width: 100%;
+
+  & > div > .smart-input {
+    padding: 10px 20px;
+    height: auto;
+  }
+
+  .smart-drop-down-button {
+    height: auto;
+  }
+}
+
+.continue_btn {
+  margin-right: 10px;
+}

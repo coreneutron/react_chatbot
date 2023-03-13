@@ -1,0 +1,113 @@
+.side_menu {
+  & > div {
+    // background: linear-gradient(#89397f94, #1c3faade) !important;
+    // background: var(--blue);
+    background: #3f4d67;
+    border-right: 0;
+  }
+
+  .bg_trendingup {
+    background: linear-gradient(-135deg, #1de9b6, #1dc4e9);
+    border-radius: 10px;
+    width: 35px;
+    height: 35px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .b_brand {
+    display: flex;
+    justify-content: space-between;
+    .b_text {
+      font-weight: 400;
+      color: #fff;
+      font-size: 18px;
+    }
+
+    .mobile_menu {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 37px;
+      height: 70px;
+      position: absolute;
+      right: 10px;
+      top: 0;
+      padding: 0 10px;
+      color: #a9b7d0;
+
+      -webkit-transition: all 0.3s ease-in-out;
+      transition: all 0.3s ease-in-out;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      & > span {
+        position: relative;
+        display: block;
+        width: 100%;
+        height: 2.8px;
+        background-color: #a9b7d0;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        border-radius: 2px;
+
+        -webkit-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+
+        &::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          height: 2.8px;
+          background-color: #a9b7d0;
+          -webkit-transition: all 0.3s;
+          transition: all 0.3s;
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+          border-radius: 2px;
+          top: -5px;
+          width: 40%;
+        }
+
+        &::after {
+          top: 5px;
+          width: 70%;
+          content: "";
+          position: absolute;
+          left: 0;
+          height: 2.8px;
+          background-color: #a9b7d0;
+          -webkit-transition: all 0.3s;
+          transition: all 0.3s;
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+          border-radius: 2px;
+        }
+      }
+    }
+
+    .mobile_menu.on {
+      & > span {
+        background-color: transparent;
+        &::before {
+          height: 2px;
+          width: 100%;
+          -webkit-transform: rotate(45deg) translate(4px, 4px);
+          transform: rotate(45deg) translate(4px, 4px);
+        }
+        &::after {
+          height: 2px;
+          width: 100%;
+          -webkit-transform: rotate(-45deg) translate(3px, -3px);
+          transform: rotate(-45deg) translate(3px, -3px);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+    "Title":"業者管理システム",
+
+    "All" : "全て",
+    "Save" : "保存",
+    "Cancel":"キャンセル",
+    "Back" : "戻る",
+    "Skip":"スキップ",
+    "Try" : "試す",
+
+    "Name":"名前",
+    "Email" : "メール",
+    "Login ID" : "ログインID",
+    "Password":"パスワード",
+    "Login":"ログイン",
+    "SignUp":"新規登録",
+    "You have been successfully logged out":"ログアウトしました。",
+
+    "New Password":"新しいパスワード",
+    "Old Password":"現在のパスワード",
+    "Confirm Password":"パスワード確認",
+    "Invalid password":"無効なパスワード",
+    "Password mismatch":"パスワードが一致しません。",
+    "Password length greather than 6" : "パスワードの長さは6文字以上にする必要があります",
+    "Password changed successfully":"パスワードを変更しました。",
+    "Please insert old password correctly":"現在のパスワードを正しく入力ください。",
+
+    "Already have an account?":"すでにアカウントをお持ちですか？",
+    "All values must be entered!" : "すべての値をご入力ください。",
+  
+    "Disabled" : "非アクティブ",
+    "Enabled" : "アクティブ",
+
+    "Edit": "編集",
+    "Create": "新規登録",
+    "Error": "エラー",
+    
+    "None":"なし",
+
+    "Yes":"はい",
+    "No":"いいえ",
+    
+    "Setting":"設定",
+    "Status" : "スターテス",
+    "Successfully created!":"正常に作成されました。",
+    "Successfully updated!":"正常に更新されました。",
+    "Successfully deleted!":"正常に削除されました。",
+    "Selected Item Delete!": "選択項目の削除。",
+    
+    "Role" : "役割",
+
+    "User Management":"ユーザー管理",
+    "User List" : "ユーザー一覧",
+    "User Name" : "ユーザー名",
+    "User ID" : "ユーザーID",
+    "User Create" : "ユーザー作成",
+    "User Register" : "登録する",
+    "User Update" : "ユーザー更新",
+    "User Detail" : "ユーザー詳細"
+}

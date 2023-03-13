@@ -1,0 +1,13 @@
+.custom_date_input {
+  height: auto;
+  width: 100%;
+
+  & > div > .smart-input {
+    padding: 10px 20px;
+    height: auto;
+  }
+
+  .smart-drop-down-button {
+    height: auto;
+  }
+}
