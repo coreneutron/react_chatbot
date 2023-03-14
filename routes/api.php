@@ -25,13 +25,14 @@ use Illuminate\Support\Facades\DB;
 
 Route::post('/login', [AuthController::class, 'login'])->name('login.api');
 Route::post('/register', [AuthController::class, 'register'])->name('register.api');
-Route::get('/logout', [AuthController::class, 'logout']);
+
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('user-role', UserRoleController::class);
-    Route::post('/changePwd', [AuthController::class, 'changePwd']);    
+    Route::post('/changePwd', [AuthController::class, 'changePwd']);
+    Route::get('/logout', [AuthController::class, 'logout']);
 });
 
 

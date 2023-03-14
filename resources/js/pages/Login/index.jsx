@@ -25,7 +25,7 @@ const Login = () => {
 
   const [displayState, setDisplayState] = useState('login')
   const [loginData, setLoginData] = useState({email: '', password: ''})
-  const [signupData, setSignupData] = useState({first_name: '', email: '', password: '', password_confirmation: ''})
+  const [signupData, setSignupData] = useState({name: '', email: '', password: '', password_confirmation: ''})
 
   const submitLogin = async () => {
       dispatch(startAction())
@@ -34,15 +34,16 @@ const Login = () => {
         dispatch(endAction())
         if (res.data.success) {
           localStorage.setItem('token', res.data.token)
-          dispatch(showToast('success', res.data.message))
+          dispatch(showToast('success', t(res.data.message)))
           dispatch(login(res.data.user))
-          navigate("/traders")
+          navigate("/users")
         }
       } catch (error) {
+        console.log(error.response.status);
         if (error.response != undefined) {
           if (error.response.status >= 400 && error.response.status <= 500) {
             dispatch(endAction())
-            dispatch(showToast('error', error.response.data.message))
+            dispatch(showToast('error', t(error.response.data.message)))
           }
         }
       }
@@ -55,13 +56,13 @@ const Login = () => {
         dispatch(endAction())
         if (res.data.success) {
           setDisplayState('login')
-          dispatch(showToast('success', res.data.message))
+          dispatch(showToast('success', t(res.data.message)))
         }
       } catch (error) {
         if (error.response != undefined) {
-          if (error.response.status >= 400 && error.response.status <= 415) {
+          if (error.response.status >= 400 && error.response.status <= 500) {
             dispatch(endAction())
-            dispatch(showToast('error', error.response.data.message))
+            dispatch(showToast('error', t(error.response.data.message)))
           }
         }
       }
@@ -118,7 +119,7 @@ const Login = () => {
                     <input type="password" className="form-control" placeholder={ t('Confirm Password') } onChange={(e) => setSignupData((old) => {return({...old, password_confirmation: e.target.value})})} onKeyPress={(e) => { if (e.keyCode === 13 || e.charCode === 13) submitRegister() }}/>
                   </div>
                   <button className="btn btn-primary shadow-2 mb-4" onClick={() => submitRegister()}>{ t('SignUp') }</button>
-                  <p className="mb-0 text-muted">{ t('Already have an account?') }&nbsp;&nbsp;<a onClick={() => setDisplayState('login')}>{ t('Login') }</a></p>
+                  <p className="mb-0 text-muted">{ t('Already have an account') }&nbsp;&nbsp;<a onClick={() => setDisplayState('login')}>{ t('Login') }</a></p>
                 </div>
               </div>
           }

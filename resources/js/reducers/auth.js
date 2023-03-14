@@ -6,8 +6,7 @@ import {
 const INITIAL_STATE = {
   currentUser: {
     id: 0,
-    first_name: '',
-    last_name: '',
+    name: '',
     uid: '',
     email: '',
     phone: '',
@@ -23,8 +22,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentUser: {
           id: action.user.id,
-          first_name: action.user.first_name,
-          // last_name: action.user.last_name,
+          name: action.user.name,
           uid: action.user.uid,
           email: action.user.email,
           phone: action.user.phone,
@@ -37,8 +35,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentUser: {
           id: 0,
-          first_name: '',
-          // last_name: '',
+          name: '',
           uid: '',
           email: '',
           phone: '',

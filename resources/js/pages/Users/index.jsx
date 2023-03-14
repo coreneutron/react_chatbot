@@ -30,11 +30,11 @@ const Users = () => {
   const [page, setPage] = useState('list');
   const [users, setUsers] = useState([]);
   const [cardTitle, setCardTitle] = useState(t('User List'));
-  const [signupData, setSignupData] = useState({first_name: '', email: '', password: '', password_confirmation: ''})
-  const [editData, setEditData] = useState({id:'', first_name: '', email: '', password: '', password_confirmation: ''})
+  const [signupData, setSignupData] = useState({name: '', email: '', password: '', password_confirmation: ''})
+  const [editData, setEditData] = useState({id:'', name: '', email: '', password: '', password_confirmation: ''})
 
   useEffect(() => {
-    getUsersData()
+    getUsers()
   }, [])
 
   const userColumns = [
@@ -45,12 +45,12 @@ const Users = () => {
       editable: false
     }, 
     {
-      field: 'first_name',
+      field: 'name',
       headerName: t('User Name'),
       editable: false,
       flex: 1,
       renderCell: (params) => {
-        return params.row.first_name;
+        return params.row.name;
       },
     }, 
     {
@@ -104,7 +104,7 @@ const Users = () => {
     },
   ]
   
-  async function getUsersData() {
+  async function getUsers() {
     dispatch(startAction())
     try {
       const resUsers = await agent.common.getUsers();
@@ -133,7 +133,7 @@ const Users = () => {
     );
 		if (res.data.success) {
       dispatch(showToast('success', res.data.message));
-      getUsersData();
+      getUsers();
       setPage('list');
     } else dispatch(showToast('error', res.data.message));
 		dispatch(endAction());
@@ -145,7 +145,7 @@ const Users = () => {
   }
 
   const submitRegister = async () => {
-    if(signupData.first_name == '' || signupData.email == '' || signupData.password == '' || signupData.password_confirmation ==''){
+    if(signupData.name == '' || signupData.email == '' || signupData.password == '' || signupData.password_confirmation ==''){
       dispatch(showToast('error', t('All values must be entered!')));
       return ;
     }
@@ -158,12 +158,12 @@ const Users = () => {
     }
     dispatch(startAction());
       try {
-        let res = await agent.auth.register(signupData.first_name, signupData.email, signupData.password, signupData.password_confirmation)
+        let res = await agent.auth.register(signupData.name, signupData.email, signupData.password, signupData.password_confirmation)
         dispatch(endAction())
         if (res.data.success) {
           setPage('list');
           setCardTitle(t('User List'));
-          getUsersData();
+          getUsers();
           dispatch(showToast('success', res.data.message));
         }
       } catch (error) {
@@ -182,13 +182,13 @@ const Users = () => {
   }
 
   const handleUserEdit = (data) => {
-    setEditData({ id: data.id, first_name:data.first_name, email: data.email });
+    setEditData({ id: data.id, name:data.name, email: data.email });
     setPage('edit');
     setCardTitle(t('User Detail'));
   }
 
   const submitUpdate = async () => {
-    if(editData.first_name == '' || editData.email == '' || editData.password == '' || editData.password_confirmation == ''){
+    if(editData.name == '' || editData.email == '' || editData.password == '' || editData.password_confirmation == ''){
       dispatch(showToast('error', t('All values must be entered!')));
       return ;
     }
@@ -203,7 +203,7 @@ const Users = () => {
     try {
       const res = await agent.common.updateUser(editData.id, editData);
       if (res.data.success) {
-        getUsersData();
+        getUsers();
         dispatch(showToast('success', t('Successfully updated!')));
       }
       dispatch(endAction())
@@ -242,7 +242,7 @@ const Users = () => {
     try {
       const res = await agent.common.deleteUser(id);
       if (res.data.success) {
-        getUsersData();
+        getUsers();
         dispatch(showToast('success', t('Successfully deleted!')));
       }
       dispatch(endAction());
@@ -295,7 +295,7 @@ const Users = () => {
                     </div>
                     <div className="card-body text-center">
                       <div className="input-group mb-3">
-                        <input type="text" className="form-control" placeholder={ t('Name') } onChange={(e) => setSignupData((old) => {return({...old, first_name: e.target.value})})} />
+                        <input type="text" className="form-control" placeholder={ t('Name') } onChange={(e) => setSignupData((old) => {return({...old, name: e.target.value})})} />
                       </div>
                       <div className="input-group mb-3">
                         <input type="text" className="form-control" placeholder={ t('Login ID') } onChange={(e) => setSignupData((old) => {return({...old, email: e.target.value})})} />
@@ -325,7 +325,7 @@ const Users = () => {
                       </div>
                       <div className="card-body text-center">
                         <div className="input-group mb-3">
-                          <input type="text" className="form-control" placeholder={ t('Name') } value={editData.first_name} onChange={(e) => setEditData((old) => {return({...old, first_name: e.target.value})})} />
+                          <input type="text" className="form-control" placeholder={ t('Name') } value={editData.name} onChange={(e) => setEditData((old) => {return({...old, name: e.target.value})})} />
                         </div>
                         <div className="input-group mb-3">
                           <input type="text" className="form-control" placeholder={ t('Login ID') } value={editData.email} onChange={(e) => setEditData((old) => {return({...old, email: e.target.value})})} />

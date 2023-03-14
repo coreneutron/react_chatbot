@@ -14,7 +14,12 @@
     "Password":"パスワード",
     "Login":"ログイン",
     "SignUp":"新規登録",
+    "You have been successfully logged in":"ユーザーが正常にログインしました。",
     "You have been successfully logged out":"ログアウトしました。",
+    "Email already exist" : "メールは既に存在します。",
+    "User does not exist": "ユーザーが存在しません。",
+    "User registered successfully": "ユーザー登録が完了しました。",
+    "User has been disabled": "このアカウントは無効になっています。",
 
     "New Password":"新しいパスワード",
     "Old Password":"現在のパスワード",
@@ -25,8 +30,8 @@
     "Password changed successfully":"パスワードを変更しました。",
     "Please insert old password correctly":"現在のパスワードを正しく入力ください。",
 
-    "Already have an account?":"すでにアカウントをお持ちですか？",
-    "All values must be entered!" : "すべての値をご入力ください。",
+    "Already have an account":"すでにアカウントをお持ちですか？",
+    "All values must be entered" : "すべての値をご入力ください。",
   
     "Disabled" : "非アクティブ",
     "Enabled" : "アクティブ",
@@ -42,10 +47,10 @@
     
     "Setting":"設定",
     "Status" : "スターテス",
-    "Successfully created!":"正常に作成されました。",
-    "Successfully updated!":"正常に更新されました。",
-    "Successfully deleted!":"正常に削除されました。",
-    "Selected Item Delete!": "選択項目の削除。",
+    "Successfully created":"正常に作成されました。",
+    "Successfully updated":"正常に更新されました。",
+    "Successfully deleted":"正常に削除されました。",
+    "Selected Item Delete": "選択項目の削除。",
     
     "Role" : "役割",
 

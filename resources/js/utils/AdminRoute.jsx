@@ -34,7 +34,7 @@ const AdmindRoute = props => {
   if (auth.currentUser.role == 1) {
     return <React.Fragment>{props.children}</React.Fragment>
   } else {
-    navigate('/traders')
+    navigate('/users')
   }
   if (!localStorage.getItem('token')) {
     navigate('/')

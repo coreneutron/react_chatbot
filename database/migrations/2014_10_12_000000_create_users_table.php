@@ -20,7 +20,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->string('phone')->nullable();
-            $table->tinyInteger('disabled')->default(0);
+            $table->tinyInteger('disabled')->default(0); // 0: allow 1: not allow
             $table->rememberToken();
             $table->timestamp('disabled_at')->nullable();
             $table->timestamp('enabled_at')->nullable();

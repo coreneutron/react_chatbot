@@ -216,9 +216,6 @@ const SideMenu = () => {
     }
   }
   
-  const goToTrader = () => {
-    window.location.href="/traders";
-  }
   return (
     <>
       <StyledSidebar 
@@ -247,20 +244,7 @@ const SideMenu = () => {
                 </div>
               </StyledTopMenuItem>
           }
-          {/* <StyledMenuItem icon={<HomeIcon/>} component={<Link to="/home" />}>{ t('Company Management') }</StyledMenuItem> */}
-          <StyledMenuItem icon={<GroupsIcon/>} onClick={goToTrader}>{ t('Trader Management') }</StyledMenuItem>
-          
-          {
-            auth.currentUser.role == 1
-            ?
-            <>
-            <StyledMenuItem icon={<LinkIcon />} component={<Link to="/routing" />}>{ t('Routing Management') }</StyledMenuItem>
-            <StyledMenuItem icon={<CopyrightIcon />} component={<Link to="/clipboard" />}>{ t('Clipboard Management') }</StyledMenuItem>
-            <StyledMenuItem icon={<PeopleIcon />} component={<Link to="/users" />}>{ t('User Management') }</StyledMenuItem>
-            </>
-            :
-            null
-          }
+          <StyledMenuItem icon={<PeopleIcon />} component={<Link to="/users" />}>{ t('User Management') }</StyledMenuItem>
         </Menu>
       </StyledSidebar>
       

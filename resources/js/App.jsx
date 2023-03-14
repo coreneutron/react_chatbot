@@ -45,7 +45,7 @@ export default function App(){
       <Routes>
         <Route exact path="/" element={<NonProtectedRoute><Login /></NonProtectedRoute>} />
         <Route element={<SideLayout/>}>
-          <Route path="/users" element={<AdminRoute><Users /></AdminRoute>} />
+          <Route path="/users" element={<ProtectedRoute><Users /></ProtectedRoute>} />
           <Route path="/changePassword" element={<ProtectedRoute><ChangePassword /></ProtectedRoute>} />
         </Route>
       </Routes>

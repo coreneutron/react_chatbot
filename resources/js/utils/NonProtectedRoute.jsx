@@ -22,7 +22,7 @@ const NonProtectedRoute = props => {
           const res = await agent.auth.me()
           if (res.data.email) {
             dispatch(login(res.data))
-            navigate("/traders")
+            navigate("/users")
           }
         } catch (error) {
           if (error.response != undefined && error.response.status >= 400 && error.response.status <= 415) {

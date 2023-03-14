@@ -18,21 +18,35 @@ class AuthController extends Controller
 	public function register(Request $request)
 	{
 		$validator = Validator::make($request->all(), [
-			'first_name' => 'required|string|max:255',
-			// 'last_name' => 'required|string|max:255',
+			'name' => 'required|string|max:255',
 			'email' => 'required|string|max:255|unique:users',
 			'password' => 'required|string|min:6|confirmed',
 		]);
+
 		if ($validator->fails()) {
-			return response(['errors' => $validator->errors()->all()], 422);
+			$errors = $validator->errors()->all();
+			$message = '';
+			if (in_array("validation.required", $errors)) {
+					$message = "All values must be entered";
+			}
+			if (in_array("validation.unique", $errors)) {
+					$message = "Email alreay exist";
+			}
+			if (in_array("validation.min.string", $errors)) {
+					$message = "Password length greather than 6";
+			}
+			$response = [
+				"message" => $message,
+				"success" => false
+			];
+			return response($response, 422);
 		}
+
 		$request['password'] = Hash::make($request['password']);
 		$request['remember_token'] = Str::random(10);
-		// return response($request->toArray(), 200);/
+		
 		$user = User::create($request->toArray());
-
 		// generate unique id for search
-		$user->uid = $user->first_name . sprintf('%05d', $user->id);
 		$user->disabled = 1;
 		$user->save();
 
@@ -40,23 +54,17 @@ class AuthController extends Controller
 		$user->disabled = 1;  // 0 enable 1 disable
 		$user->enabled_at = Carbon::now()->format('Y-m-d H:i:s');
 
-		// DB::table('user_role')->insert([
-		// 	'user_id' => $user->id,
-		// 	'role_id' => 0
-		// ]);
-
-        // should be determined later
 		$role_id = 2;
-
 		$user->roles()->attach($role_id);
 
 		$token = $user->createToken('Laravel Password Grant Client')->accessToken;
+
 		$response = [
 			'success' => true,
 			'token' => $token,
 			'user' => $user,
 			'roles' => 2,
-      'message' => 'ユーザー登録が完了しました。'
+      'message' => 'User registered successfully'
 		];
 		return response($response, 200);
 	}
@@ -67,55 +75,56 @@ class AuthController extends Controller
 			'email' => 'required|string|max:255',
 			'password' => 'required|string|min:6',
 		]);
+
 		if ($validator->fails()) {
-			return response(['errors' => $validator->errors()->all()], 422);
+			$errors = $validator->errors()->all();
+			$message = '';
+			if (in_array("validation.required", $errors)) {
+					$message = "All values must be entered";
+			}
+			if (in_array("validation.min.string", $errors)) {
+					$message = "Password length greather than 6";
+			}
+			$response = [
+				"message" => $message,
+				"success" => false
+			];
+			return response($response, 422);
 		}
+
 		$user = User::where('email', $request->email)->first();
 		if ($user) {
 			if ($user->disabled == 0) {
 				if (Hash::check($request->password, $user->password)) {
-
 					$credentials = $request->only('email', 'password');
-
-					// if (Hash::check($request->password, $user->password) && $user->hasVerifiedEmail()) {
 					$token = $user->createToken('Laravel Password Grant Client')->plainTextToken;
-
-					// $role_id = DB::table('user_role')->where('user_id', '=', $user->id)->first()->role_id;
-                    $role = json_decode($user->roles);
-                    $role_id = $role[0]->pivot->role_id;
-
+					$role = json_decode($user->roles);
+					$role_id = $role[0]->pivot->role_id;
 					$response = [
 						'success' => true,
 						'token' => $token,
 						'user' => $user,
 						'role' => $role_id,
-            'message' => 'ユーザーが正常にログインしました。'
+            'message' => 'You have been successfully logged in'
 					];
-
 					return response($response, 200);
-					// } else if (!$user->hasVerifiedEmail()) {
-					// 	$response = [
-					// 		"message" => "Email is not verified.",
-					// 		"success" => false
-					// 	];
-					// 	return response($response, 422);
 				} else {
 					$response = [
-						"message" => "パスワードが一致しません。",
+						"message" => "Password mismatch",
 						"success" => false
 					];
 					return response($response, 422);
 				}
 			} else {
 				$response = [
-					"message" => 'このアカウントは無効になっています。',
+					"message" => 'User has been disabled',
 					"success" => false
 				];
 				return response($response, 422);
 			}
 		} else {
 			$response = [
-				"message" => 'ユーザーが存在しません',
+				"message" => 'User does not exist',
 				"success" => false
 			];
 			return response($response, 422);
@@ -126,7 +135,7 @@ class AuthController extends Controller
 	{
 			$token = $request->user()->currentAccessToken()->delete();
 	    $response = [
-	        'message' => 'ログアウトしました。',
+	        'message' => 'You have been successfully logged out',
 	        'success' => true,
 	    ];
 	    return response($response, 200);
@@ -137,8 +146,7 @@ class AuthController extends Controller
 	//     $user = Auth::user();
 
 	//     $validator = Validator::make($request->all(), [
-	//         'first_name' => 'required|string|max:255',
-	//         'last_name' => 'required|string|max:255',
+	//         'name' => 'required|string|max:255',
 	//         'email' => [
 	//             'required',
 	//             'unique:users,email,' . $user->id,
