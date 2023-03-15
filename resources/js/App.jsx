@@ -12,6 +12,11 @@ import SideLayout from './components/SideLayout'
 import Login from './pages/Login'
 import Users from './pages/Users'
 import ChangePassword from './pages/ChangePassword';
+import Scenarios from './pages/Scenarios';
+import ScenarioCreate from './pages/Scenarios/create';
+import ScenarioEdit from './pages/Scenarios/edit';
+import Questions from './pages/Questions';
+import QuestionsCreate from './pages/Questions/create'
 
 import Preloading from './components/Preloading'
 import ToastMsg from './components/ToastMsg'
@@ -47,6 +52,11 @@ export default function App(){
         <Route element={<SideLayout/>}>
           <Route path="/users" element={<ProtectedRoute><Users /></ProtectedRoute>} />
           <Route path="/changePassword" element={<ProtectedRoute><ChangePassword /></ProtectedRoute>} />
+          <Route path="/scenarios" element={<ProtectedRoute><Scenarios /></ProtectedRoute>} />
+          <Route path="/scenario/create" element={<ProtectedRoute><ScenarioCreate /></ProtectedRoute>} />
+          <Route path="/scenario/edit/:id" element={<ProtectedRoute><ScenarioEdit /></ProtectedRoute>} />
+          <Route path="/questions" element={<ProtectedRoute><Questions /></ProtectedRoute>} />
+          <Route path="/question/create/:id" element={<ProtectedRoute><QuestionsCreate /></ProtectedRoute>} />
         </Route>
       </Routes>
       <Preloading />
@@ -70,7 +80,7 @@ createRoot(el).render(
       //     return await fn();
       // }}
   }>
-    <React.StrictMode>
+    {/* <React.StrictMode> */}
       <Provider store={store}>
         <ProSidebarProvider>
           <ThemeProvider theme={theme}>
@@ -78,7 +88,7 @@ createRoot(el).render(
           </ThemeProvider>
         </ProSidebarProvider>
       </Provider>
-    </React.StrictMode>
+    {/* </React.StrictMode> */}
   </LaravelReactI18nProvider>
 )
 

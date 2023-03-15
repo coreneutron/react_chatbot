@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Question;
+use App\Models\Option;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class QuestionController extends Controller
 {
@@ -14,7 +17,11 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        //
+        $questions = Question::all();
+        return response()->json([
+            'success' => true,
+            'data' => $questions
+        ]);
     }
 
     /**
@@ -35,7 +42,45 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validator = Validator::make($request->question, [
+			'scenario_id' => 'required',
+			'type' => 'required',
+		]);
+
+		if ($validator->fails()) {
+			$errors = $validator->errors()->all();
+			$message = '';
+			if (in_array("validation.required", $errors)) {
+					$message = "All values must be entered";
+			}
+			$response = [
+				"message" => $message,
+				"success" => false
+			];
+			return response($response, 422);
+		}
+
+        $question = $request->question;
+        $options = $request->options;
+
+        $question = Question::create($question);
+        
+        if(count($options) > 0){
+            foreach ($options as $item) {
+                Option::create([
+                    'question_id' => $question->id, 
+                    'content' => $item['content'], 
+                    'next_question_id' => $item['next_question_id']
+                ]); 
+            }
+        }
+
+
+        return response()->json([
+            'success' => true,
+            'data' => $question
+        ]);
     }
 
     /**
@@ -80,6 +125,19 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //
+        if($question->type == 'option'){
+            $question_id = $question->id;
+            Option::where('question_id', $question_id)->delete();
+            $question->delete();
+        } else {
+            $question->delete();
+        }
+
+        $questions = Question::all();
+
+        return response()->json([
+            'success' => true,
+            'data' => $questions
+        ]);
     }
 }

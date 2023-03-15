@@ -19,7 +19,7 @@ class CreateScenariosTable extends Migration
             $table->string('message')->nullable();
             $table->string('image')->nullable();
             $table->integer('question_id')->nullable();
-            $table->tinyInteger('status')->default(0);
+            $table->tinyInteger('status')->default(0); // 0: not allow 1: allow
             $table->timestamps();
         });
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Scenario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ScenarioController extends Controller
 {
@@ -14,7 +15,12 @@ class ScenarioController extends Controller
      */
     public function index()
     {
-        //
+
+        $scenarios = Scenario::all();
+        return response()->json([
+            'success' => true,
+            'data' => $scenarios
+        ]);
     }
 
     /**
@@ -35,7 +41,42 @@ class ScenarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+			'title' => 'required|string',
+			'message' => 'required|string',
+		]);
+
+		if ($validator->fails()) {
+			$errors = $validator->errors()->all();
+			$message = '';
+			if (in_array("validation.required", $errors)) {
+					$message = "All values must be entered";
+			}
+			$response = [
+				"message" => $message,
+				"success" => false
+			];
+			return response($response, 422);
+		}
+
+        $data = $request->all();
+        
+        if($request->file){
+            $upload_path = public_path('upload');
+            $generated_name = '';
+            $file_name = $request->file->getClientOriginalName();
+            $generated_name = time() . '.' . $request->file->getClientOriginalExtension();
+            $request->file->move($upload_path, $generated_name);
+            $data['image'] = $generated_name;
+        }
+
+        
+        $scenario = Scenario::create($data);
+
+        return response()->json([
+            'success' => true,
+            'data' => $scenario
+        ]);
     }
 
     /**
@@ -46,7 +87,10 @@ class ScenarioController extends Controller
      */
     public function show(Scenario $scenario)
     {
-        //
+        return response()->json([
+            'success' => true,
+            'data' => $scenario
+        ]);
     }
 
     /**
@@ -81,5 +125,29 @@ class ScenarioController extends Controller
     public function destroy(Scenario $scenario)
     {
         //
+        $scenario->delete();
+        $scenarios = Scenario::all();
+
+        return response()->json([
+            'success' => true,
+            'data' => $scenarios
+        ]);
+    }
+
+    public function updateScenarioStatus(Request $request)
+    {  
+        $id = $request->id;
+        $status = $request->status;
+        Scenario::query()->update(['status' => 0]);
+        
+        $scenario = Scenario::find($id);
+        $scenario->status = 1;
+        $scenario->save();
+
+        $scenarios = Scenario::all();
+        return response()->json([
+            'success' => true,
+            'data' => $scenarios
+        ]);
     }
 }

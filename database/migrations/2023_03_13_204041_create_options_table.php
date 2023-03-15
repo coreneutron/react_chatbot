@@ -15,9 +15,9 @@ class CreateOptionsTable extends Migration
     {
         Schema::create('options', function (Blueprint $table) {
             $table->id(); 
-            $table->string('value');
-            $table->integer('prev_question_id');
-            $table->integer('next_question_id');
+            $table->integer('question_id');
+            $table->string('content');
+            $table->integer('next_question_id')->nullable();
             $table->timestamps();
         });
     }

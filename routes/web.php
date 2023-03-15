@@ -24,3 +24,23 @@ Route::get('/users', function () {
 Route::get('/changePassword', function () {
     return view('welcome');
 });
+
+Route::get('/scenarios', function () {
+    return view('welcome');
+});
+
+Route::get('/scenario/create', function () {
+    return view('welcome');
+});
+
+Route::get('/scenario/edit/{id}', function () {
+    return view('welcome');
+});
+
+Route::get('/questions', function () {
+    return view('welcome');
+});
+
+Route::get('/question/create/{id}', function () {
+    return view('welcome');
+});

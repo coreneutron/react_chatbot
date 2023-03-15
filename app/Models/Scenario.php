@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Scenario extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'message',
+        'routing_id',
+        'image'
+    ];
 }

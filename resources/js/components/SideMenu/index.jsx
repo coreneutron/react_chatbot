@@ -7,10 +7,12 @@ import {FiTrendingUp} from "react-icons/fi"
 import styled from 'styled-components';
 
 import HomeIcon from '@mui/icons-material/Home';
+import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import GroupsIcon from '@mui/icons-material/Groups';
 import LinkIcon from '@mui/icons-material/Link';
 import CopyrightIcon from '@mui/icons-material/Copyright';
 import PeopleIcon from '@mui/icons-material/People';
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
 
 import styles from "./SideMenu.module.scss"
 import { useResize, checkMobileDevice } from "./../../utils/Helper"
@@ -245,6 +247,8 @@ const SideMenu = () => {
               </StyledTopMenuItem>
           }
           <StyledMenuItem icon={<PeopleIcon />} component={<Link to="/users" />}>{ t('User Management') }</StyledMenuItem>
+          <StyledMenuItem icon={<HistoryEduIcon />} component={<Link to="/scenarios" />}>{ t('Scenario Management') }</StyledMenuItem>
+          <StyledMenuItem icon={<QuestionAnswerIcon />} component={<Link to="/questions" />}>{ t('Question Management') }</StyledMenuItem>
         </Menu>
       </StyledSidebar>
       

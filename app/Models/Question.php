@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'scenario_id',
+        'type',
+        'content',
+        'next_question_id'
+    ];
 }
