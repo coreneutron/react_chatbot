@@ -67,14 +67,10 @@ const Question = () => {
       headerName: '操作',
       minWidth: 100,
       renderCell: ( params ) => {
-        if(params.row.role != 1){
           return  <div>
             <RemoveRedEyeIcon onClick={()=>goEditPage(params.row.id)} style={{cursor: 'pointer', fontSize: '1.25rem', marginRight: '10px'}} />
             <DeleteIcon onClick={()=>questionDelete(params.row.id)} style={{cursor: 'pointer', fontSize: '1.25rem'}} />
           </div>
-        } 
-        else 
-          return <div key={params.row.id}></div>;
       },
     },
   ]
@@ -82,7 +78,7 @@ const Question = () => {
   useEffect(() => {
     getScenarios();
     getQuestions();
-  }, [])
+  }, [scenario])
 
   const getScenarios = async () => {
     dispatch(startAction())
@@ -112,7 +108,7 @@ const Question = () => {
   const getQuestions = async () => {
     dispatch(startAction())
     try {
-      const res = await agent.common.getQuestions();
+      const res = await agent.common.getQuestionsById(scenario.scenario_id);
       if (res.data.success) {
         setQuestions(res.data.data);
       }

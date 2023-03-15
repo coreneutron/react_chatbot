@@ -68,9 +68,10 @@ const commonApi = {
             },
         }),
     updateScenario: (id, scenario) =>
-        axios.put(`${API_URL}/scenarios/${id}`, { scenario }, 
+        axios.post(`${API_URL}/updateScenario`, scenario,
         {
             headers: {
+                'content-type': 'multipart/form-data',
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
         }),
@@ -93,6 +94,13 @@ const commonApi = {
         }),
 
     // Question
+    getQuestionsById: (id) =>
+        axios.post(`${API_URL}/getQuestionsById`, {id}, 
+        {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        }),
     getQuestions: () =>
         axios.get(`${API_URL}/questions`, 
         {

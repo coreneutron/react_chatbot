@@ -57,6 +57,33 @@ const ScenarioCreate = () => {
     );
   };
 
+  const [questions, setQuestions] = useState([]);
+
+  useEffect(()=>{
+    getQuestions();
+  }, [])
+
+  const getQuestions = async () => {
+    dispatch(startAction())
+    try {
+      const res = await agent.common.getQuestions();
+      if (res.data.success) {
+        setQuestions(res.data.data);
+      }
+      dispatch(endAction());
+    } catch (error) {
+      if (error.response.status >= 400 && error.response.status <= 500) {
+        dispatch(endAction());
+        dispatch(showToast('error', t(error.response.data.message)));
+        if (error.response.data.message == 'Unauthorized') {
+          localStorage.removeItem('token');
+          dispatch(logout());
+          navigate('/');
+        }
+      }
+    }
+  }
+
   const handleChange = (event) => {
     setScenario({...scenario, [event.target.name]: event.target.value});
   }
@@ -105,8 +132,13 @@ const ScenarioCreate = () => {
           <div className="row">
             <div className="col">
               <div className="card">
-                <div className="card-header">
+                <div className="card-header"  style={{display:'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                   <h5 className="card-title">Scenario Create</h5>
+                  <div>
+                    <Button color="primary" startIcon={<ArrowBackIcon />} onClick={() => goBack()}>
+                      { t('Back') }
+                    </Button>
+                  </div>
                 </div>
                 <div className="card-body">
                   <div className="row">
@@ -127,8 +159,13 @@ const ScenarioCreate = () => {
                           value=""
                           onChange={handleChange}
                         >
+                          <MenuItem value='' key=''>None</MenuItem>
                           {
-                              <MenuItem value='' key=''></MenuItem>
+                            questions.map((item, index )=> {
+                              return (
+                                <MenuItem value={item.id} key={index}>{item.id}</MenuItem>
+                              )
+                            })
                           }
                         </Select>
                       </FormControl>
@@ -145,11 +182,7 @@ const ScenarioCreate = () => {
                   <div className="text-center">
                     <Button variant="outlined" onClick={() => scenarioCreate()}>Scenario Create</Button>
                   </div>
-                  <div>
-                    <Button color="primary" startIcon={<ArrowBackIcon />} onClick={() => goBack()}>
-                      { t('Back') }
-                    </Button>
-                  </div>
+
                 </div>
               </div>
             </div>

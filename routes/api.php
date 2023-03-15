@@ -6,6 +6,7 @@ use App\Http\Controllers\UserRoleController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ScenarioController;
 use App\Http\Controllers\QuestionController;
+use App\Http\Controllers\SettingController;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -31,8 +32,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('user-role', UserRoleController::class);
     Route::apiResource('scenarios', ScenarioController::class);
+    Route::post('/updateScenario', [ScenarioController::class, 'updateScenario']);
     Route::post('/updateScenarioStatus', [ScenarioController::class, 'updateScenarioStatus']);
     Route::apiResource('questions', QuestionController::class);
+    Route::post('/getQuestionsById', [QuestionController::class, 'getQuestionsById']);
+    Route::apiResource('settings', SettingController::class);
     Route::post('/changePwd', [AuthController::class, 'changePwd']);
     Route::get('/logout', [AuthController::class, 'logout']);
 });

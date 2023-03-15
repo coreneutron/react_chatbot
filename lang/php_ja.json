@@ -53,7 +53,9 @@
     "Selected Item Delete": "選択項目の削除。",
     
     "Role" : "役割",
+    "Chat" : "Chat",
     "Scenario Management" : "シナリオ管理",
+    "Setting Management" : "Setting管理",
     "Question Management" : "Question管理",
     "User Management":"ユーザー管理",
     "User List" : "ユーザー一覧",

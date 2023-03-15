@@ -16,7 +16,10 @@ import Scenarios from './pages/Scenarios';
 import ScenarioCreate from './pages/Scenarios/create';
 import ScenarioEdit from './pages/Scenarios/edit';
 import Questions from './pages/Questions';
-import QuestionsCreate from './pages/Questions/create'
+import QuestionCreate from './pages/Questions/create';
+import QuestionEdit from './pages/Questions/edit';
+import Setting from './pages/Setting';
+import Chat from './pages/Chat';
 
 import Preloading from './components/Preloading'
 import ToastMsg from './components/ToastMsg'
@@ -49,6 +52,7 @@ export default function App(){
 		<Router>
       <Routes>
         <Route exact path="/" element={<NonProtectedRoute><Login /></NonProtectedRoute>} />
+        <Route path="/chat" element={<Chat />} />
         <Route element={<SideLayout/>}>
           <Route path="/users" element={<ProtectedRoute><Users /></ProtectedRoute>} />
           <Route path="/changePassword" element={<ProtectedRoute><ChangePassword /></ProtectedRoute>} />
@@ -56,7 +60,9 @@ export default function App(){
           <Route path="/scenario/create" element={<ProtectedRoute><ScenarioCreate /></ProtectedRoute>} />
           <Route path="/scenario/edit/:id" element={<ProtectedRoute><ScenarioEdit /></ProtectedRoute>} />
           <Route path="/questions" element={<ProtectedRoute><Questions /></ProtectedRoute>} />
-          <Route path="/question/create/:id" element={<ProtectedRoute><QuestionsCreate /></ProtectedRoute>} />
+          <Route path="/question/create/:id" element={<ProtectedRoute><QuestionCreate /></ProtectedRoute>} />
+          <Route path="/question/edit/:id" element={<ProtectedRoute><QuestionEdit /></ProtectedRoute>} />
+          <Route path="/setting" element={<ProtectedRoute><Setting /></ProtectedRoute>} />
         </Route>
       </Routes>
       <Preloading />

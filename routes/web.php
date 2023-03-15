@@ -44,3 +44,15 @@ Route::get('/questions', function () {
 Route::get('/question/create/{id}', function () {
     return view('welcome');
 });
+
+Route::get('/question/edit/{id}', function () {
+    return view('welcome');
+});
+
+Route::get('/setting', function () {
+    return view('welcome');
+});
+
+Route::get('/chat', function () {
+    return view('welcome');
+});

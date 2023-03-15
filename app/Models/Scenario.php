@@ -12,7 +12,7 @@ class Scenario extends Model
     protected $fillable = [
         'title',
         'message',
-        'routing_id',
+        'question_id',
         'image'
     ];
 }

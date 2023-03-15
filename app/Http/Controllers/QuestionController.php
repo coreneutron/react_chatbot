@@ -91,7 +91,10 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
-        //
+        return response()->json([
+            'success' => true,
+            'data' => $question
+        ]);
     }
 
     /**
@@ -135,6 +138,21 @@ class QuestionController extends Controller
 
         $questions = Question::all();
 
+        return response()->json([
+            'success' => true,
+            'data' => $questions
+        ]);
+    }
+
+        /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function getQuestionsById(Request $request)
+    {
+        $questions = Question::where('scenario_id', $request->id)->get();
         return response()->json([
             'success' => true,
             'data' => $questions

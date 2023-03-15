@@ -39,7 +39,6 @@ const Login = () => {
           navigate("/users")
         }
       } catch (error) {
-        console.log(error.response.status);
         if (error.response != undefined) {
           if (error.response.status >= 400 && error.response.status <= 500) {
             dispatch(endAction())

@@ -10,6 +10,7 @@ class Question extends Model
     use HasFactory;
 
     protected $fillable = [
+        'id',
         'scenario_id',
         'type',
         'content',

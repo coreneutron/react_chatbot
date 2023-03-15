@@ -13,6 +13,8 @@ import LinkIcon from '@mui/icons-material/Link';
 import CopyrightIcon from '@mui/icons-material/Copyright';
 import PeopleIcon from '@mui/icons-material/People';
 import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import SettingsIcon from '@mui/icons-material/Settings';
+import MarkUnreadChatAltIcon from '@mui/icons-material/MarkUnreadChatAlt';
 
 import styles from "./SideMenu.module.scss"
 import { useResize, checkMobileDevice } from "./../../utils/Helper"
@@ -249,6 +251,8 @@ const SideMenu = () => {
           <StyledMenuItem icon={<PeopleIcon />} component={<Link to="/users" />}>{ t('User Management') }</StyledMenuItem>
           <StyledMenuItem icon={<HistoryEduIcon />} component={<Link to="/scenarios" />}>{ t('Scenario Management') }</StyledMenuItem>
           <StyledMenuItem icon={<QuestionAnswerIcon />} component={<Link to="/questions" />}>{ t('Question Management') }</StyledMenuItem>
+          <StyledMenuItem icon={<SettingsIcon />} component={<Link to="/setting" />}>{ t('Setting Management') }</StyledMenuItem>
+          <StyledMenuItem icon={<MarkUnreadChatAltIcon />} component={<Link to="/chat" />}>{ t('Chat') }</StyledMenuItem>
         </Menu>
       </StyledSidebar>
       

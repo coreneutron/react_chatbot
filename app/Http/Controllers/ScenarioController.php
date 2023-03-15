@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Scenario;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use File;
 
 class ScenarioController extends Controller
 {
@@ -104,6 +105,34 @@ class ScenarioController extends Controller
         //
     }
 
+
+    public function updateScenario(Request $request)
+    {
+        $id = $request->id;
+        $data = $request->all();
+        $scenario = Scenario::find($id);
+
+        if($request->file){
+            $file_path = public_path('upload/'.$scenario->image);
+            if(File::exists($file_path)) {
+                unlink($file_path);
+            }
+
+            $upload_path = public_path('upload');
+            $generated_name = '';
+            $file_name = $request->file->getClientOriginalName();
+            $generated_name = time() . '.' . $request->file->getClientOriginalExtension();
+            $request->file->move($upload_path, $generated_name);
+            $data['image'] = $generated_name;
+        }
+        
+        $scenario->update($data);
+
+        return response()->json([
+            'success' => true,
+            'data' => $scenario
+        ]);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -113,7 +142,29 @@ class ScenarioController extends Controller
      */
     public function update(Request $request, Scenario $scenario)
     {
-        //
+        $data = $request->all();
+        return response()->json([
+            'success' => true,
+            'data' => $data
+        ]);
+        // $data = $request->all();
+        // dd($scenario);
+
+
+        // if($request->file){
+        //     $upload_path = public_path('upload');
+        //     $generated_name = '';
+        //     $file_name = $request->file->getClientOriginalName();
+        //     $generated_name = time() . '.' . $request->file->getClientOriginalExtension();
+        //     $request->file->move($upload_path, $generated_name);
+        //     $data['image'] = $generated_name;
+        // }
+
+        // $scenario->update($data);
+        // return response()->json([
+        //     'success' => true,
+        //     'data' => $scenario
+        // ]);
     }
 
     /**

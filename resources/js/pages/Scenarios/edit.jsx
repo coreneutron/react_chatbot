@@ -32,9 +32,10 @@ const ScenarioEdit = () => {
   });
 
   const [scenario, setScenario] = useState({
+    id: '',
     title : '',
     message : '',
-    question_id : 0,
+    question_id : '',
     image: ''
   });
 
@@ -42,9 +43,36 @@ const ScenarioEdit = () => {
 
   let { id } = useParams();
   
+  const [questions, setQuestions] = useState([]);
+
   useEffect(()=>{
       getScenario(id)
   }, [id])
+
+  useEffect(()=>{
+    getQuestions();
+  }, [])
+
+  const getQuestions = async () => {
+    dispatch(startAction())
+    try {
+      const res = await agent.common.getQuestions();
+      if (res.data.success) {
+        setQuestions(res.data.data);
+      }
+      dispatch(endAction());
+    } catch (error) {
+      if (error.response.status >= 400 && error.response.status <= 500) {
+        dispatch(endAction());
+        dispatch(showToast('error', t(error.response.data.message)));
+        if (error.response.data.message == 'Unauthorized') {
+          localStorage.removeItem('token');
+          dispatch(logout());
+          navigate('/');
+        }
+      }
+    }
+  }
 
   const getScenario = async(id) => {
     try {
@@ -98,17 +126,20 @@ const ScenarioEdit = () => {
   
   const scenarioUpdate = async() => {
     const formData = new FormData();
+    formData.append("id", scenario.id);
     formData.append("title", scenario.title);
     formData.append("message", scenario.message);
-    formData.append("question_id", scenario.routing);
+    formData.append("question_id", scenario.question_id);
+    formData.append("image", scenario.image);
+
     if(file)
       formData.append("file", file);
 
     dispatch(startAction())
     try {
-      const res = await agent.common.createScenario(formData);
+      const res = await agent.common.updateScenario(scenario.id, formData);
       if (res.data.success) {
-        dispatch(showToast('success', t('Successfully created')))
+        dispatch(showToast('success', t('Successfully updated')))
         setScenario(res.data.data);
       }
       dispatch(endAction());
@@ -156,11 +187,16 @@ const ScenarioEdit = () => {
                           id="demo-simple-select"
                           name="question_id"
                           label="question_id"
-                          value=""
+                          value={scenario.question_id}
                           onChange={handleChange}
                         >
+                          <MenuItem value='' key=''>None</MenuItem>
                           {
-                              <MenuItem value='' key=''></MenuItem>
+                            questions.map((item, index )=> {
+                              return (
+                                <MenuItem value={item.id} key={index}>{item.id}</MenuItem>
+                              )
+                            })
                           }
                         </Select>
                       </FormControl>
@@ -177,7 +213,6 @@ const ScenarioEdit = () => {
                   <div className="text-center">
                     <Button variant="outlined" onClick={() => scenarioUpdate()}>Scenario Update</Button>
                   </div>
-                  
                 </div>
               </div>
             </div>

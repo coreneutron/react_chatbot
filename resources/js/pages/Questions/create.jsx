@@ -19,7 +19,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css'
 
 import { useLaravelReactI18n } from 'laravel-react-i18n'
 
-const QuestionsCreate = () => {
+const QuestionCreate = () => {
   const { t, tChoice } = useLaravelReactI18n();
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -33,11 +33,38 @@ const QuestionsCreate = () => {
     type: 'text',
     content: '',
   });
-  const [options, setOptions] = useState([{ content: '', next_question_id: '' }]);
+
+  const [options, setOptions] = useState([]);
+  const [questions, setQuestions] = useState([]);
 
   useEffect(()=>{
     setQuestion({...question, scenario_id: id});
   }, [id])
+
+  useEffect(()=>{
+    getQuestions();
+  }, [])
+
+  const getQuestions = async () => {
+    dispatch(startAction())
+    try {
+      const res = await agent.common.getQuestions();
+      if (res.data.success) {
+        setQuestions(res.data.data);
+      }
+      dispatch(endAction());
+    } catch (error) {
+      if (error.response.status >= 400 && error.response.status <= 500) {
+        dispatch(endAction());
+        dispatch(showToast('error', t(error.response.data.message)));
+        if (error.response.data.message == 'Unauthorized') {
+          localStorage.removeItem('token');
+          dispatch(logout());
+          navigate('/');
+        }
+      }
+    }
+  }
 
   const handleChange = (event) => {
     setQuestion({...question, [event.target.name]: event.target.value});
@@ -91,8 +118,13 @@ const QuestionsCreate = () => {
           <div className="row">
             <div className="col">
               <div className="card">
-                <div className="card-header">
+                <div className="card-header" style={{display:'flex', justifyContent: 'space-between', alignItems: 'center'}}>
                   <h5 className="card-title">Question Create</h5>
+                  <div>
+                    <Button color="primary" startIcon={<ArrowBackIcon />} onClick={() => goBack()}>
+                      { t('Back') }
+                    </Button>
+                  </div>
                 </div>
                 <div className="card-body">
                   <div className="row">
@@ -128,7 +160,14 @@ const QuestionsCreate = () => {
                               value={question.next_question_id}
                               onChange={handleChange}
                             >
-                              <MenuItem value='' key=''></MenuItem>
+                              <MenuItem value='' key=''>None</MenuItem>
+                              {
+                                questions.map((item, index )=> {
+                                  return (
+                                    <MenuItem value={item.id} key={index}>{item.id}</MenuItem>
+                                  )
+                                })
+                              }
                             </Select>
                           </FormControl>
                         </>
@@ -156,10 +195,15 @@ const QuestionsCreate = () => {
                                     name="next_question_id"
                                     label="next_question_id"
                                     value={item.next_question_id}
-                                    onChange={(event)=>handleOptionChange(index, e.target.name, e.target.value)}
+                                    onChange={(event)=>handleOptionChange(index, event.target.name, event.target.value)}
                                   >
+                                    <MenuItem value='' key=''>None</MenuItem>
                                     {
-                                        <MenuItem value='' key=''></MenuItem>
+                                      questions.map((item, index )=> {
+                                        return (
+                                          <MenuItem value={item.id} key={index}>{item.id}</MenuItem>
+                                        )
+                                      })
                                     }
                                   </Select>
                                 </FormControl>
@@ -197,11 +241,6 @@ const QuestionsCreate = () => {
                   <div className="text-center" style={{marginTop: '10px'}}>
                     <Button variant="outlined" onClick={() => questionCreate()}>Question Create</Button>
                   </div>
-                  <div>
-                    <Button color="primary" startIcon={<ArrowBackIcon />} onClick={() => goBack()}>
-                      { t('Back') }
-                    </Button>
-                  </div>
                 </div>
               </div>
             </div>
@@ -212,4 +251,4 @@ const QuestionsCreate = () => {
   )
 }
 
-export default QuestionsCreate
+export default QuestionCreate
