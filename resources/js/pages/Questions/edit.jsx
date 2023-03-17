@@ -53,6 +53,8 @@ const QuestionEdit = () => {
       const res = await agent.common.getQuestion(id);
       if (res.data.success) {
         setQuestion(res.data.data);
+        if(res.data.options.length > 0)
+          setOptions(res.data.options);
       }
       dispatch(endAction());
     } catch (error) {
@@ -112,10 +114,10 @@ const QuestionEdit = () => {
     setOptions(tmp);
   }
 
-  const questionCreate = async() => {
+  const questionUpdate = async() => {
     dispatch(startAction())
     try {
-      const res = await agent.common.createQuestion(question, options);
+      const res = await agent.common.updateQuestion(question.id, question, options);
       if (res.data.success) {
         dispatch(showToast('success', t('Successfully created')))
         setQuestion(res.data.data);
@@ -218,10 +220,15 @@ const QuestionEdit = () => {
                                     name="next_question_id"
                                     label="next_question_id"
                                     value={item.next_question_id}
-                                    onChange={(event)=>handleOptionChange(index, e.target.name, e.target.value)}
+                                    onChange={(event)=>handleOptionChange(index, event.target.name, event.target.value)}
                                   >
+                                    <MenuItem value='' key=''></MenuItem>
                                     {
-                                        <MenuItem value='' key=''></MenuItem>
+                                      questions.map((item, index )=> {
+                                        return (
+                                          <MenuItem value={item.id} key={index}>{item.id}</MenuItem>
+                                        )
+                                      })
                                     }
                                   </Select>
                                 </FormControl>
@@ -247,8 +254,13 @@ const QuestionEdit = () => {
                               value={question.next_question_id}
                               onChange={handleChange}
                             >
+                              <MenuItem value='' key=''></MenuItem>
                               {
-                                  <MenuItem value='' key=''></MenuItem>
+                                questions.map((item, index )=> {
+                                  return (
+                                    <MenuItem value={item.id} key={index}>{item.id}</MenuItem>
+                                  )
+                                })
                               }
                             </Select>
                           </FormControl>
@@ -257,7 +269,7 @@ const QuestionEdit = () => {
                     </div>
                   </div>
                   <div className="text-center" style={{marginTop: '10px'}}>
-                    <Button variant="outlined" onClick={() => questionCreate()}>Question Update</Button>
+                    <Button variant="outlined" onClick={() => questionUpdate()}>Question Update</Button>
                   </div>
                 </div>
               </div>

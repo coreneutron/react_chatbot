@@ -122,8 +122,8 @@ const commonApi = {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
         }),
-    updateQuestion: (id, question) =>
-        axios.put(`${API_URL}/questions/${id}`, { question }, 
+    updateQuestion: (id, question, options) =>
+        axios.put(`${API_URL}/questions/${id}`, { question:question, options:options }, 
         {
             headers: {
                 Authorization: "Bearer " + localStorage.getItem("token"),

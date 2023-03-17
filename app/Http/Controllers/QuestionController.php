@@ -91,9 +91,15 @@ class QuestionController extends Controller
      */
     public function show(Question $question)
     {
+        $options = [];
+        if($question->type == 'option'){
+           $options = Option::where('question_id', $question->id)->get(); 
+        }
+
         return response()->json([
             'success' => true,
-            'data' => $question
+            'data' => $question,
+            'options' => $options
         ]);
     }
 
@@ -117,7 +123,25 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //
+        if($request->question['type'] == 'option'){
+            foreach($request->options as $option){
+                if(isset($option['id']))
+                    Option::updateOrCreate(['id' => $option['id']], $option); 
+                else
+                    Option::create([ 'question_id' => $request->question['id'], 'content' => $option['content'], 'next_question_id' => $option['next_question_id']]); 
+            }
+        }
+
+        if($request->question['type'] == 'text' || $request->question['type'] == 'text' ){
+            $question->update($request->question);
+        }
+
+        return response()->json([
+            'success' => true,
+            'question' => $request->question,
+            'options' => $request->options,
+            'data' => $question
+        ]);
     }
 
     /**
