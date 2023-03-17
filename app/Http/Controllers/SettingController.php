@@ -14,7 +14,11 @@ class SettingController extends Controller
      */
     public function index()
     {
-        //
+        $settings = Setting::all();
+        return response()->json([
+            'success' => true,
+            'data' => $settings
+        ]);
     }
 
     /**
@@ -46,7 +50,10 @@ class SettingController extends Controller
      */
     public function show(Setting $setting)
     {
-        //
+        return response()->json([
+            'success' => true,
+            'data' => $setting
+        ]);
     }
 
     /**
@@ -69,7 +76,13 @@ class SettingController extends Controller
      */
     public function update(Request $request, Setting $setting)
     {
-        //
+        $data = $request->setting;
+        $setting->update($data);
+
+        return response()->json([
+            'success' => true,
+            'data' => $setting
+        ]);
     }
 
     /**

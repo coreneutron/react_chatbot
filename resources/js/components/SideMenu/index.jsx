@@ -251,7 +251,7 @@ const SideMenu = () => {
           <StyledMenuItem icon={<PeopleIcon />} component={<Link to="/users" />}>{ t('User Management') }</StyledMenuItem>
           <StyledMenuItem icon={<HistoryEduIcon />} component={<Link to="/scenarios" />}>{ t('Scenario Management') }</StyledMenuItem>
           <StyledMenuItem icon={<QuestionAnswerIcon />} component={<Link to="/questions" />}>{ t('Question Management') }</StyledMenuItem>
-          <StyledMenuItem icon={<SettingsIcon />} component={<Link to="/setting" />}>{ t('Setting Management') }</StyledMenuItem>
+          <StyledMenuItem icon={<SettingsIcon />} component={<Link to="/settings" />}>{ t('Setting Management') }</StyledMenuItem>
           <StyledMenuItem icon={<MarkUnreadChatAltIcon />} component={<Link to="/chat" />}>{ t('Chat') }</StyledMenuItem>
         </Menu>
       </StyledSidebar>

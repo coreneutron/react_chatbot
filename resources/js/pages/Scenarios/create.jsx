@@ -87,6 +87,7 @@ const ScenarioCreate = () => {
   const handleChange = (event) => {
     setScenario({...scenario, [event.target.name]: event.target.value});
   }
+  
   const uploadImage = () => {
     fileInputField.current.click();
   }

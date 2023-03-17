@@ -49,7 +49,11 @@ Route::get('/question/edit/{id}', function () {
     return view('welcome');
 });
 
-Route::get('/setting', function () {
+Route::get('/settings', function () {
+    return view('welcome');
+});
+
+Route::get('/setting/edit/{id}', function () {
     return view('welcome');
 });
 

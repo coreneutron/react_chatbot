@@ -27,7 +27,6 @@ const Setting = () => {
   //   header_title: '',
   //   header_sentence: '',
   //   main_color: '',
-  //   main_color: '',
   //   bot_text_color: '',
   //   background_color: ''
   // });
@@ -40,21 +39,29 @@ const Setting = () => {
       editable: false
     }, 
     {
-      field: 'type',
-      headerName: 'Type',
+      field: 'name',
+      headerName: 'Name',
       flex: 1,
       editable: false
+    }, 
+    {
+      field: 'value',
+      headerName: 'Value',
+      flex: 1,
+      renderCell: ( params ) => {
+        if(params.row.type == 'color')
+          return  <input type="color" value={params.row.value} disabled />
+        else 
+          return <div>{params.row.value}</div>;
+      },
     }, 
     {
       field: 'actions',
       headerName: '操作',
       minWidth: 100,
       renderCell: ( params ) => {
-        if(params.row.role != 1){
-          return  <div>
-            <RemoveRedEyeIcon onClick={()=>goEditPage(params.row.id)} style={{cursor: 'pointer', fontSize: '1.25rem'}} />
-          </div>
-        } 
+        if(params.row.role != 1)
+          return  <div><RemoveRedEyeIcon onClick={()=>goEditPage(params.row.id)} style={{cursor: 'pointer', fontSize: '1.25rem'}} /></div>
         else 
           return <div key={params.row.id}></div>;
       },
@@ -66,28 +73,28 @@ const Setting = () => {
   }, [])
 
   const getSettings = async () => {
-    // dispatch(startAction())
-    // try {
-    //   const res = await agent.common.getSettings();
-    //   if (res.data.success) {
-    //     setScenarios(res.data.data);
-    //   }
-    //   dispatch(endAction());
-    // } catch (error) {
-    //   if (error.response.status >= 400 && error.response.status <= 500) {
-    //     dispatch(endAction());
-    //     dispatch(showToast('error', t(error.response.data.message)));
-    //     if (error.response.data.message == 'Unauthorized') {
-    //       localStorage.removeItem('token');
-    //       dispatch(logout());
-    //       navigate('/');
-    //     }
-    //   }
-    // }
+    dispatch(startAction())
+    try {
+      const res = await agent.common.getSettings();
+      if (res.data.success) {
+        setSettings(res.data.data);
+      }
+      dispatch(endAction());
+    } catch (error) {
+      if (error.response.status >= 400 && error.response.status <= 500) {
+        dispatch(endAction());
+        dispatch(showToast('error', t(error.response.data.message)));
+        if (error.response.data.message == 'Unauthorized') {
+          localStorage.removeItem('token');
+          dispatch(logout());
+          navigate('/');
+        }
+      }
+    }
   }
 
   const goEditPage = (id) => {
-    navigate(`/question/edit/${id}`);
+    navigate(`/setting/edit/${id}`);
   }
 
   return (

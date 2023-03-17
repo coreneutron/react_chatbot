@@ -16,7 +16,6 @@ class ScenarioController extends Controller
      */
     public function index()
     {
-
         $scenarios = Scenario::all();
         return response()->json([
             'success' => true,
@@ -143,9 +142,10 @@ class ScenarioController extends Controller
     public function update(Request $request, Scenario $scenario)
     {
         $data = $request->all();
+        $scenario->update($data);
         return response()->json([
             'success' => true,
-            'data' => $data
+            'data' => $scenario
         ]);
         // $data = $request->all();
         // dd($scenario);

@@ -19,6 +19,7 @@ import Questions from './pages/Questions';
 import QuestionCreate from './pages/Questions/create';
 import QuestionEdit from './pages/Questions/edit';
 import Setting from './pages/Setting';
+import SettingEdit from './pages/Setting/edit';
 import Chat from './pages/Chat';
 
 import Preloading from './components/Preloading'
@@ -62,7 +63,8 @@ export default function App(){
           <Route path="/questions" element={<ProtectedRoute><Questions /></ProtectedRoute>} />
           <Route path="/question/create/:id" element={<ProtectedRoute><QuestionCreate /></ProtectedRoute>} />
           <Route path="/question/edit/:id" element={<ProtectedRoute><QuestionEdit /></ProtectedRoute>} />
-          <Route path="/setting" element={<ProtectedRoute><Setting /></ProtectedRoute>} />
+          <Route path="/settings" element={<ProtectedRoute><Setting /></ProtectedRoute>} />
+          <Route path="/setting/edit/:id" element={<ProtectedRoute><SettingEdit /></ProtectedRoute>} />
         </Route>
       </Routes>
       <Preloading />

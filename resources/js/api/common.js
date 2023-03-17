@@ -135,7 +135,29 @@ const commonApi = {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
         }),
-
+    
+    // Setting
+    getSettings: () =>
+        axios.get(`${API_URL}/settings`, 
+        {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        }),
+    getSetting: (id) =>
+        axios.get(`${API_URL}/settings/${id}`, 
+        {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        }),
+    updateSetting: (id, setting) =>
+        axios.put(`${API_URL}/settings/${id}`, { setting }, 
+        {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        }),
     updateAccountStatus: (id, disabled) =>
         axios.put(
             `${API_URL}/users/${id}`,
