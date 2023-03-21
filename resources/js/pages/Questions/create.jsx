@@ -119,7 +119,7 @@ const QuestionCreate = () => {
             <div className="col">
               <div className="card">
                 <div className="card-header" style={{display:'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                  <h5 className="card-title">Question Create</h5>
+                  <h5 className="card-title">{t('Question Create')}</h5>
                   <div>
                     <Button color="primary" startIcon={<ArrowBackIcon />} onClick={() => goBack()}>
                       { t('Back') }
@@ -130,7 +130,7 @@ const QuestionCreate = () => {
                   <div className="row">
                     <div className="col-md-12">
                       <FormControl fullWidth margin="normal">
-                        <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                        <InputLabel id="demo-simple-select-label">{t('Type')}</InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
@@ -148,10 +148,10 @@ const QuestionCreate = () => {
                         question.type === 'text' &&
                         <>
                           <FormControl fullWidth margin="normal">
-                            <TextField id="outlined-basic" label="content" name="content"  multiline rows={5} value={question.content} onChange={handleChange} />
+                            <TextField id="outlined-basic" label={t('Content')} name="content"  multiline rows={5} value={question.content} onChange={handleChange} />
                           </FormControl>
                           <FormControl fullWidth margin="normal">
-                            <InputLabel id="demo-simple-select-label">Next Question ID</InputLabel>
+                            <InputLabel id="demo-simple-select-label">{t('Next Question Id')}</InputLabel>
                             <Select
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
@@ -185,10 +185,10 @@ const QuestionCreate = () => {
                             options.map((item, index)=>(
                               <div style={{display: 'flex', justifyContent: 'space-between'}} key={index}>
                                 <FormControl sx={{ minWidth: 500 }} margin="normal">
-                                  <TextField id="outlined-basic" label="content" name="content" value={item.content} onChange={(e)=>handleOptionChange(index, e.target.name, e.target.value)} />
+                                  <TextField id="outlined-basic" label={t('Content')} name="content" value={item.content} onChange={(e)=>handleOptionChange(index, e.target.name, e.target.value)} />
                                 </FormControl>
                                 <FormControl sx={{ minWidth: 250 }} margin="normal">
-                                  <InputLabel id="demo-simple-select-label">Next Question ID</InputLabel>
+                                  <InputLabel id="demo-simple-select-label">{t('Next Question Id')}</InputLabel>
                                   <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -217,10 +217,10 @@ const QuestionCreate = () => {
                         question.type === 'input' &&
                         <>
                           <FormControl fullWidth margin="normal">
-                            <TextField id="outlined-basic" label="content" name="content"  multiline rows={5} value={question.content} onChange={handleChange} />
+                            <TextField id="outlined-basic" label={t('Content')} name="content"  multiline rows={5} value={question.content} onChange={handleChange} />
                           </FormControl>
                           <FormControl fullWidth margin="normal">
-                            <InputLabel id="demo-simple-select-label">Next Question ID</InputLabel>
+                            <InputLabel id="demo-simple-select-label">{t('Next Question Id')}</InputLabel>
                             <Select
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
@@ -239,7 +239,7 @@ const QuestionCreate = () => {
                     </div>
                   </div>
                   <div className="text-center" style={{marginTop: '10px'}}>
-                    <Button variant="outlined" onClick={() => questionCreate()}>Question Create</Button>
+                    <Button variant="outlined" onClick={() => questionCreate()}>{t('Create')}</Button>
                   </div>
                 </div>
               </div>

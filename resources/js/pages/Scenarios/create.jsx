@@ -134,7 +134,7 @@ const ScenarioCreate = () => {
             <div className="col">
               <div className="card">
                 <div className="card-header"  style={{display:'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                  <h5 className="card-title">Scenario Create</h5>
+                  <h5 className="card-title">{t('Scenario Create')}</h5>
                   <div>
                     <Button color="primary" startIcon={<ArrowBackIcon />} onClick={() => goBack()}>
                       { t('Back') }
@@ -145,13 +145,13 @@ const ScenarioCreate = () => {
                   <div className="row">
                     <div className="col-md-12">
                       <FormControl fullWidth margin="normal">
-                        <TextField id="outlined-basic" label="title" name="title" value={scenario.title} onChange={handleChange} />
+                        <TextField id="outlined-basic" label={t('Title')} name="title" value={scenario.title} onChange={handleChange} />
                       </FormControl>
                       <FormControl fullWidth margin="normal">
-                        <TextField id="outlined-basic" label="message" name="message"  multiline rows={5} value={scenario.message} onChange={handleChange} />
+                        <TextField id="outlined-basic" label={t('Content')} name="message"  multiline rows={5} value={scenario.message} onChange={handleChange} />
                       </FormControl>
                       <FormControl fullWidth margin="normal">
-                        <InputLabel id="demo-simple-select-label">Question ID</InputLabel>
+                        <InputLabel id="demo-simple-select-label">{t('Question Id')}</InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
@@ -172,7 +172,7 @@ const ScenarioCreate = () => {
                       </FormControl>
                       <FormControl fullWidth margin="normal">
                         <div className="cursor-pointer" onClick={()=>uploadImage()} >
-                          <FileUploadIcon />File Upload
+                          <FileUploadIcon />{t('File Upload')}
                         </div>
                         <input className="d-none" accept="image/*" ref={fileInputField} type="file" onChange={fileHandler} />
                         <img className="preview" src={preview.src} alt={preview.alt} style={{width: '200px', height: '200px'}} onClick={()=>uploadImage()}/>
@@ -181,7 +181,7 @@ const ScenarioCreate = () => {
                     
                   </div>
                   <div className="text-center">
-                    <Button variant="outlined" onClick={() => scenarioCreate()}>Scenario Create</Button>
+                    <Button variant="outlined" onClick={() => scenarioCreate()}>{t('Create')}</Button>
                   </div>
 
                 </div>

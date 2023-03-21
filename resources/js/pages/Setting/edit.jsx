@@ -96,7 +96,7 @@ const SettingEdit = () => {
             <div className="col">
               <div className="card">
                 <div className="card-header" style={{display:'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                  <h5 className="card-title">Setting Edit</h5>
+                  <h5 className="card-title">{t('Setting Edit')}</h5>
                   <div>
                     <Button color="primary" startIcon={<ArrowBackIcon />} onClick={() => goBack()}>
                       { t('Back') }
@@ -109,15 +109,15 @@ const SettingEdit = () => {
                     {
                       setting.type === 'text' &&
                       <FormControl fullWidth margin="normal">
-                        <TextField id="outlined-basic" label="Title" margin="normal" name="title" value={setting.name} disabled />
-                        <TextField id="outlined-basic" label="value" name="value" value={setting.value} multiline rows={5} onChange={handleChange} />
+                        <TextField id="outlined-basic" label={t('Field Name')} margin="normal" name="title" value={setting.name} disabled />
+                        <TextField id="outlined-basic" label={t('Content')} name="value" value={setting.value} multiline rows={5} onChange={handleChange} />
                       </FormControl>                   
                     }
                     {
                       setting.type === 'color' &&
                       <>
-                        <div style={{display: 'flex', justifyContent: 'space-between', marginTop: '10px'}}>
-                          <TextField id="outlined-basic" label="Title" name="title" value={setting.name} disabled />
+                        <div style={{display: 'flex', marginTop: '10px'}}>
+                          <TextField id="outlined-basic" style={{marginRight: '20px'}} label="Title" name="title" value={setting.name} disabled />
                           <input type="color" style={{height: '55px'}} name="value" value={setting.value} onChange={handleChange} />
                         </div>
                       </>
@@ -125,7 +125,7 @@ const SettingEdit = () => {
                     </div>
                   </div>
                   <div className="text-center" style={{marginTop: '10px'}}>
-                    <Button variant="outlined" onClick={() => settingUpdate()}>Setting Update</Button>
+                    <Button variant="outlined" onClick={() => settingUpdate()}>{t('Update')}</Button>
                   </div>
                 </div>
               </div>

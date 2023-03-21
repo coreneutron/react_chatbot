@@ -158,6 +158,15 @@ const commonApi = {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
         }),
+    
+    getStory: () =>
+        axios.get(`${API_URL}/getStory`, 
+        {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        }),
+    
     updateAccountStatus: (id, disabled) =>
         axios.put(
             `${API_URL}/users/${id}`,

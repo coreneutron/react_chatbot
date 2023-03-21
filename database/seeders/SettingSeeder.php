@@ -17,27 +17,27 @@ class SettingSeeder extends Seeder
         DB::table('settings')->insert(
             [
                 [
-                    'name' => 'header_title',
+                    'name' => 'ヘッダーのタイトル',
                     'value' => 'This is great chat bot!',
                     'type' => 'text'
                 ], 
                 [
-                    'name' => 'header_sentence',
+                    'name' => 'ヘッダー文章',
                     'value' => 'I am very happy to develop this auto chat app!',
                     'type' => 'text'
                 ], 
                 [
-                    'name' => 'main_color',
+                    'name' => '基本色',
                     'value' => '#162f5c',
                     'type' => 'color'
                 ], 
                 [
-                    'name' => 'bot_text_color',
+                    'name' => 'Bot文字の色',
                     'value' => '#314141',
                     'type' => 'color'
                 ], 
                 [
-                    'name' => 'background_color',
+                    'name' => '背景色',
                     'value' => '#ffffff',
                     'type' => 'color'
                 ]

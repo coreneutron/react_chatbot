@@ -40,25 +40,25 @@ const Question = () => {
     }, 
     {
       field: 'scenario_id',
-      headerName: 'Scenario Id',
+      headerName: t('Scenario Id'),
       maxWidth: 100,
       editable: false
     }, 
     {
       field: 'type',
-      headerName: 'Type',
+      headerName: t('Type'),
       maxWidth: 300,
       editable: false
     }, 
     {
       field: 'content',
-      headerName: 'Content',
+      headerName: t('Content'),
       flex: 1,
       editable: false
     }, 
     {
       field: 'next_question_id',
-      headerName: 'Next Question Id',
+      headerName: t('Next Question Id'),
       flex: 1,
       editable: false
     },
@@ -163,14 +163,14 @@ const Question = () => {
             <div className="col">
               <div className="card">
                 <div className="card-header">
-                  <h5 className="card-title">Question List</h5>
+                  <h5 className="card-title">{t('Question List')}</h5>
                 </div>
                 <div className="card-body">
                   <div className="row">
                     <div className="col-md-12">
                       <div>
                         <FormControl fullWidth margin="normal">
-                          <InputLabel id="demo-simple-select-label">Scenarios</InputLabel>
+                          <InputLabel id="demo-simple-select-label">{t('Please select scenario')}</InputLabel>
                           <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"

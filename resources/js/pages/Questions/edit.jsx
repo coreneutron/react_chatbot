@@ -144,7 +144,7 @@ const QuestionEdit = () => {
             <div className="col">
               <div className="card">
                 <div className="card-header" style={{display:'flex', justifyContent: 'space-between', alignItems: 'center'}}>
-                  <h5 className="card-title">Question Edit</h5>
+                  <h5 className="card-title">{t('Question Edit')}</h5>
                   <div>
                     <Button color="primary" startIcon={<ArrowBackIcon />} onClick={() => goBack()}>
                       { t('Back') }
@@ -155,7 +155,7 @@ const QuestionEdit = () => {
                   <div className="row">
                     <div className="col-md-12">
                       <FormControl fullWidth margin="normal">
-                        <InputLabel id="demo-simple-select-label">Type</InputLabel>
+                        <InputLabel id="demo-simple-select-label">{t('Type')}</InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
@@ -176,7 +176,7 @@ const QuestionEdit = () => {
                             <TextField id="outlined-basic" label="content" name="content"  multiline rows={5} value={question.content} onChange={handleChange} />
                           </FormControl>
                           <FormControl fullWidth margin="normal">
-                            <InputLabel id="demo-simple-select-label">Next Question ID</InputLabel>
+                            <InputLabel id="demo-simple-select-label">{t('Next Question Id')}</InputLabel>
                             <Select
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
@@ -213,7 +213,7 @@ const QuestionEdit = () => {
                                   <TextField id="outlined-basic" label="content" name="content" value={item.content} onChange={(e)=>handleOptionChange(index, e.target.name, e.target.value)} />
                                 </FormControl>
                                 <FormControl sx={{ minWidth: 250 }} margin="normal">
-                                  <InputLabel id="demo-simple-select-label">Next Question ID</InputLabel>
+                                  <InputLabel id="demo-simple-select-label">{t('Next Question Id')}</InputLabel>
                                   <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
@@ -245,7 +245,7 @@ const QuestionEdit = () => {
                             <TextField id="outlined-basic" label="content" name="content"  multiline rows={5} value={question.content} onChange={handleChange} />
                           </FormControl>
                           <FormControl fullWidth margin="normal">
-                            <InputLabel id="demo-simple-select-label">Next Question ID</InputLabel>
+                            <InputLabel id="demo-simple-select-label">{t('Next Question Id')}</InputLabel>
                             <Select
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
@@ -269,7 +269,7 @@ const QuestionEdit = () => {
                     </div>
                   </div>
                   <div className="text-center" style={{marginTop: '10px'}}>
-                    <Button variant="outlined" onClick={() => questionUpdate()}>Question Update</Button>
+                    <Button variant="outlined" onClick={() => questionUpdate()}>{t('Update')}</Button>
                   </div>
                 </div>
               </div>

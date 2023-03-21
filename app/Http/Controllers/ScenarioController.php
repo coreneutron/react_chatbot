@@ -3,12 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Scenario;
+use App\Models\Question;
+use App\Models\Option;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use File;
 
 class ScenarioController extends Controller
 {
+    public $story = [];
     /**
      * Display a listing of the resource.
      *
@@ -69,7 +73,6 @@ class ScenarioController extends Controller
             $request->file->move($upload_path, $generated_name);
             $data['image'] = $generated_name;
         }
-
         
         $scenario = Scenario::create($data);
 
@@ -104,34 +107,6 @@ class ScenarioController extends Controller
         //
     }
 
-
-    public function updateScenario(Request $request)
-    {
-        $id = $request->id;
-        $data = $request->all();
-        $scenario = Scenario::find($id);
-
-        if($request->file){
-            $file_path = public_path('upload/'.$scenario->image);
-            if(File::exists($file_path)) {
-                unlink($file_path);
-            }
-
-            $upload_path = public_path('upload');
-            $generated_name = '';
-            $file_name = $request->file->getClientOriginalName();
-            $generated_name = time() . '.' . $request->file->getClientOriginalExtension();
-            $request->file->move($upload_path, $generated_name);
-            $data['image'] = $generated_name;
-        }
-        
-        $scenario->update($data);
-
-        return response()->json([
-            'success' => true,
-            'data' => $scenario
-        ]);
-    }
     /**
      * Update the specified resource in storage.
      *
@@ -167,6 +142,56 @@ class ScenarioController extends Controller
         // ]);
     }
 
+    public function updateScenario(Request $request)
+    {
+        $id = $request->id;
+        $data = $request->all();
+        $scenario = Scenario::find($id);
+
+        if($request->file){
+            $file_path = public_path('upload/'.$scenario->image);
+            if(File::exists($file_path)) {
+                unlink($file_path);
+            }
+
+            $upload_path = public_path('upload');
+            $generated_name = '';
+            $file_name = $request->file->getClientOriginalName();
+            $generated_name = time() . '.' . $request->file->getClientOriginalExtension();
+            $request->file->move($upload_path, $generated_name);
+            $data['image'] = $generated_name;
+        }
+        
+        $scenario->update($data);
+
+        return response()->json([
+            'success' => true,
+            'data' => $scenario
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     */
+    public function updateScenarioStatus(Request $request)
+    {  
+        $id = $request->id;
+        $status = $request->status;
+        Scenario::query()->update(['status' => 0]);
+        
+        $scenario = Scenario::find($id);
+        $scenario->status = 1;
+        $scenario->save();
+
+        $scenarios = Scenario::all();
+        return response()->json([
+            'success' => true,
+            'data' => $scenarios
+        ]);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -185,20 +210,57 @@ class ScenarioController extends Controller
         ]);
     }
 
-    public function updateScenarioStatus(Request $request)
-    {  
-        $id = $request->id;
-        $status = $request->status;
-        Scenario::query()->update(['status' => 0]);
-        
-        $scenario = Scenario::find($id);
-        $scenario->status = 1;
-        $scenario->save();
+    /**
+     * Get the story resource from storage.
+     */
+    public function getStory()
+    {
+        $scenario = Scenario::where('status', 1)->first();
+        if(isset($scenario['question_id'])){
+            array_push($this->story, array('id'=> $scenario['title'], 'message'=> $scenario['message'], 'trigger'=>$scenario['question_id']));
+            $question = Question::where('id', $scenario['question_id'])->first();
+            if(isset($question['next_question_id'])){
+                $this->makeQuestionJson($question['id']);
+            } 
+            else {
+                if($question['type'] == 'text')
+                    array_push($this->story, array('id'=> $question['id'], 'message'=> $question['content']));
+                if($question['type'] == 'option')
+                    $this->makeOptionJson($question);
+            }
+        } else {
+            array_push($this->story, array('id'=> $scenario['title'], 'message'=> $scenario['message']));
+        }
 
-        $scenarios = Scenario::all();
-        return response()->json([
-            'success' => true,
-            'data' => $scenarios
-        ]);
+        return response()->json([ 'success' => true,  'data' => $this->story ]);
+    }
+
+    public function makeQuestionJson($id){
+        $data = Question::where('id', $id)->first();
+        
+        if(!is_null($data['next_question_id'])){
+            array_push($this->story, array('id'=> $data['id'], 'message'=> $data['content'], 'trigger'=>$data['next_question_id']));
+            return $this->makeQuestionJson($data['next_question_id']);
+        } 
+        else {
+            if($data['type'] == 'text' || $data['type'] == 'input' ){
+                array_push($this->story, array('id'=> $data['id'], 'message'=> $data['content']));
+            }
+            if($data['type'] == 'option')
+                $this->makeOptionJson($data);
+        }
+    }
+    public function makeOptionJson($question){
+        $options = [];
+        $data = Option::where('question_id', $question['id'])->get();
+        foreach($data as $index=>$item){
+            if(isset($item['next_question_id'])) {
+                array_push($options, array('value'=> $index, 'label'=> $item['content'], 'trigger'=>$item['next_question_id']));
+                $this->makeQuestionJson($item['next_question_id']);
+            } else {
+                array_push($options, array('value'=> $index, 'label'=> $item['content']));
+            }
+        }
+        array_push($this->story, array('id'=> $question['id'], 'options'=> $options));
     }
 }

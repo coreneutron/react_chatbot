@@ -240,7 +240,7 @@ const SideMenu = () => {
                 icon={<div className={styles.bg_trendingup}><FiTrendingUp /></div>}
               >
                 <div className={styles.b_brand}>
-                  <span className={styles.b_text}>{ t('Title') }</span>
+                  <span className={styles.b_text}>{ t('App Title') }</span>
                   {
                     !collapsed &&
                       <div className={`${styles.mobile_menu} ${(clickedMobileMenu ? styles.on : '')}`} onClick={() => clickMobileMenu()}><span></span></div>
@@ -252,10 +252,9 @@ const SideMenu = () => {
           <StyledMenuItem icon={<HistoryEduIcon />} component={<Link to="/scenarios" />}>{ t('Scenario Management') }</StyledMenuItem>
           <StyledMenuItem icon={<QuestionAnswerIcon />} component={<Link to="/questions" />}>{ t('Question Management') }</StyledMenuItem>
           <StyledMenuItem icon={<SettingsIcon />} component={<Link to="/settings" />}>{ t('Setting Management') }</StyledMenuItem>
-          <StyledMenuItem icon={<MarkUnreadChatAltIcon />} component={<Link to="/chat" />}>{ t('Chat') }</StyledMenuItem>
+          <StyledMenuItem icon={<MarkUnreadChatAltIcon />} component={<Link to="/chat" />}>{ t('Chat Page') }</StyledMenuItem>
         </Menu>
       </StyledSidebar>
-      
     </>
   );
 }

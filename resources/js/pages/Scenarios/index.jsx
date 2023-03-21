@@ -26,7 +26,7 @@ const Scenarios = () => {
   const scenarioColumns = [
     {
       field: 'status',
-      headerName: 'Status',
+      headerName: t('Status'),
       maxWidth: 100,
       renderCell: (params) => {
         return <Radio
@@ -40,13 +40,13 @@ const Scenarios = () => {
     }, 
     {
       field: 'title',
-      headerName: 'Title',
+      headerName: t('Title'),
       maxWidth: 300,
       editable: false
     }, 
     {
       field: 'message',
-      headerName: 'Message',
+      headerName: t('Content'),
       flex: 1,
       editable: false
     }, 
@@ -150,13 +150,13 @@ const Scenarios = () => {
             <div className="col">
               <div className="card">
                 <div className="card-header">
-                  <h5 className="card-title">Scenario List</h5>
+                  <h5 className="card-title">{t('Scenario List')}</h5>
                 </div>
                 <div className="card-body">
                   <div className="row">
                     <div className="col-md-12">
                       <div className="table_container">
-                        <Button color="primary" startIcon={<AddIcon />} onClick={() => goCreatePage()}>新規追加</Button>
+                        <Button color="primary" startIcon={<AddIcon />} onClick={() => goCreatePage()}>{t('Create')}</Button>
                         <DataTable 
                           data={scenarios}
                           columns={scenarioColumns}

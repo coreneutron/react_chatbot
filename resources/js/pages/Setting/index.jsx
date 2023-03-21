@@ -40,13 +40,13 @@ const Setting = () => {
     }, 
     {
       field: 'name',
-      headerName: 'Name',
+      headerName: t('Filed Name'),
       flex: 1,
       editable: false
     }, 
     {
       field: 'value',
-      headerName: 'Value',
+      headerName:t('Content'),
       flex: 1,
       renderCell: ( params ) => {
         if(params.row.type == 'color')
@@ -105,7 +105,7 @@ const Setting = () => {
             <div className="col">
               <div className="card">
                 <div className="card-header">
-                  <h5 className="card-title">Setting List</h5>
+                  <h5 className="card-title">{t('Setting List')}</h5>
                 </div>
                 <div className="card-body">
                   <div className="row">
