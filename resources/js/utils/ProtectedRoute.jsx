@@ -27,7 +27,7 @@ const ProtectedRoute = props => {
           }
           if (error.response != undefined && error.response.status >= 400 && error.response.status <= 500) {
             localStorage.removeItem('token')
-            navigate('/')
+            navigate('/login')
           }
         }
       }
@@ -39,7 +39,7 @@ const ProtectedRoute = props => {
     return <React.Fragment>{props.children}</React.Fragment>
   }
   if (!localStorage.getItem('token')) {
-    navigate('/')
+    navigate('/login')
   }
   return <></>
 }

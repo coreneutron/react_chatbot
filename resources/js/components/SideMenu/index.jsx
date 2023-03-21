@@ -252,7 +252,7 @@ const SideMenu = () => {
           <StyledMenuItem icon={<HistoryEduIcon />} component={<Link to="/scenarios" />}>{ t('Scenario Management') }</StyledMenuItem>
           <StyledMenuItem icon={<QuestionAnswerIcon />} component={<Link to="/questions" />}>{ t('Question Management') }</StyledMenuItem>
           <StyledMenuItem icon={<SettingsIcon />} component={<Link to="/settings" />}>{ t('Setting Management') }</StyledMenuItem>
-          <StyledMenuItem icon={<MarkUnreadChatAltIcon />} component={<Link to="/chat" />}>{ t('Chat Page') }</StyledMenuItem>
+          <StyledMenuItem icon={<MarkUnreadChatAltIcon />} component={<Link to="/" />}>{ t('Chat Page') }</StyledMenuItem>
         </Menu>
       </StyledSidebar>
     </>

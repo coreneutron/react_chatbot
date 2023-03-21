@@ -23,7 +23,7 @@ const AdmindRoute = props => {
           }
           if (error.response != undefined && error.response.status >= 400 && error.response.status <= 500) {
             localStorage.removeItem('token')
-            navigate('/')
+            navigate('/login')
           }
         }
       }
@@ -37,7 +37,7 @@ const AdmindRoute = props => {
     navigate('/users')
   }
   if (!localStorage.getItem('token')) {
-    navigate('/')
+    navigate('/login')
   }
   return <></>
 }

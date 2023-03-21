@@ -16,7 +16,7 @@
   <!-- <link rel="stylesheet" href="https://npmcdn.com/react-bootstrap-table/dist/react-bootstrap-table-all.min.css">
   </link>
   <script src="https://npmcdn.com/react-bootstrap-table/dist/react-bootstrap-table.min.js"></script> -->
-  <title>業者管理システム</title>
+  <title>Botシステム</title>
 
   {{ vite_assets() }}
 </head>

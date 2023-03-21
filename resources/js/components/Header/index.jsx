@@ -76,7 +76,7 @@ const Header = () => {
       dispatch(showToast('success', t(res.data.message)))
       localStorage.removeItem('token')
       dispatch(logout())
-      navigate("/")
+      navigate("/login")
     } else dispatch(showToast('error', t(res.data.message)))
 		dispatch(endAction())
   }

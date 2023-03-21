@@ -78,7 +78,7 @@ const ScenarioCreate = () => {
         if (error.response.data.message == 'Unauthorized') {
           localStorage.removeItem('token');
           dispatch(logout());
-          navigate('/');
+          navigate('/login');
         }
       }
     }
@@ -120,7 +120,7 @@ const ScenarioCreate = () => {
         if (error.response.data.message == 'Unauthorized') {
           localStorage.removeItem('token');
           dispatch(logout());
-          navigate('/');
+          navigate('/login');
         }
       }
     }

@@ -96,7 +96,7 @@ const UpdatePayment = (props) => {
         if (error.response.data.message == 'Unauthorized') {
           localStorage.removeItem('token')
           dispatch(logout())
-          navigate('/')
+          navigate('/login')
         }
       }
     }
