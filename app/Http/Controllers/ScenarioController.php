@@ -229,7 +229,9 @@ class ScenarioController extends Controller
                     $this->makeOptionJson($question);
             }
         } else {
-            array_push($this->story, array('id'=> $scenario['title'], 'message'=> $scenario['message']));
+            if(isset($scenario['title']) && isset($scenario['message'])){
+                array_push($this->story, array('id'=> $scenario['title'], 'message'=> $scenario['message']));
+            }
         }
 
         return response()->json([ 'success' => true,  'data' => $this->story ]);

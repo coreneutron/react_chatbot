@@ -103,13 +103,6 @@ const Chat = () => {
     {
       id: 'firstname',
       user: true,
-      validator: (value) => {
-        if (/^[A-Za-z]+$/.test(value)) {
-          return true
-        } else {
-          return 'Please input alphabet characters only.'
-        }
-      },
       trigger: 'rmcbot',
     },
     {
@@ -124,7 +117,7 @@ const Chat = () => {
         { value: 1, label: 'Property Tax ?', trigger: '4' },
         { value: 2, label: ' Professional Tax ?', trigger: '3' },
         { value: 3, label: 'Election Department', trigger: '5' },
-        { value: 4, label: 'More Information', trigger: '6' },
+        { value: 4, label: 'More Information', trigger: 'q-submit' },
       ],
     },
     {
@@ -144,11 +137,6 @@ const Chat = () => {
       message:
         'An election is a way people can choose their candidate or their preferences in a representative democracy or other form of government',
       trigger: 'qtype',
-    },
-    {
-      id: '6',
-      component: '',
-      trigger: 'q-submit',
     },
     {
       id: 'q-submit',
@@ -186,7 +174,7 @@ const Chat = () => {
         <ChatBot
         speechSynthesis={{ enable: true, lang: 'en-US' }}
         recognitionEnable={true}
-        steps={story}
+        steps={story.length> 0 ? story : exam_data }
         {...config}
         />
     }
