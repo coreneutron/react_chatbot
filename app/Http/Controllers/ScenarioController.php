@@ -216,7 +216,7 @@ class ScenarioController extends Controller
     public function getStory()
     {
         $scenario = Scenario::where('status', 1)->first();
-        if(isset($scenario['question_id'])){
+        if(isset($scenario['question_id']) && $scenario['question_id'] != 0){
             array_push($this->story, array('id'=> $scenario['title'], 'message'=> $scenario['message'], 'trigger'=>$scenario['question_id']));
             $question = Question::where('id', $scenario['question_id'])->first();
             if(isset($question['next_question_id'])){

@@ -101,7 +101,7 @@ const ScenarioCreate = () => {
     const formData = new FormData();
     formData.append("title", scenario.title);
     formData.append("message", scenario.message);
-    formData.append("question_id", scenario.routing);
+    formData.append("question_id", scenario.question_id);
     if(file)
       formData.append("file", file);
 

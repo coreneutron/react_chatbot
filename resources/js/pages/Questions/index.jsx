@@ -108,7 +108,12 @@ const Question = () => {
   const getQuestions = async () => {
     dispatch(startAction())
     try {
-      const res = await agent.common.getQuestionsById(scenario.scenario_id);
+      let res = [];
+      if(scenario.scenario_id){
+        res = await agent.common.getQuestionsById(scenario.scenario_id);
+      } else {
+        res = await agent.common.getQuestions();
+      }
       if (res.data.success) {
         setQuestions(res.data.data);
       }
@@ -191,7 +196,6 @@ const Question = () => {
                       </div>
                       <div className="table_container">
                         {
-                          scenario.scenario_id &&
                           <>
                             <Button color="primary" startIcon={<AddIcon />} onClick={() => goCreatePage(scenario.scenario_id)}>新規追加</Button>
                             <DataTable 
