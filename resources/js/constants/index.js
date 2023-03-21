@@ -1,2 +1,2 @@
-// export const API_URL = 'http://'
-export const API_URL = 'http://localhost:8000/api'
+export const API_URL = 'http://cocorofuku3.xsrv.jp/api'
+// export const API_URL = 'http://localhost:8000/api'
