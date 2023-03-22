@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\DB;
 Route::post('/login', [AuthController::class, 'login'])->name('login.api');
 Route::post('/register', [AuthController::class, 'register'])->name('register.api');
 Route::get('/getStory', [ScenarioController::class, 'getStory']);
+Route::apiResource('settings', SettingController::class);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('users', UserController::class);
@@ -36,7 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/updateScenarioStatus', [ScenarioController::class, 'updateScenarioStatus']);
     Route::apiResource('questions', QuestionController::class);
     Route::post('/getQuestionsById', [QuestionController::class, 'getQuestionsById']);
-    Route::apiResource('settings', SettingController::class);
+    
     Route::post('/changePwd', [AuthController::class, 'changePwd']);
     Route::get('/logout', [AuthController::class, 'logout']);
 

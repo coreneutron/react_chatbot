@@ -34,13 +34,13 @@ const Setting = () => {
   const columns = [
     {
       field: 'id',
-      headerName: 'Id',
+      headerName: 'ID',
       maxWidth: 100,
       editable: false
     }, 
     {
       field: 'name',
-      headerName: t('Filed Name'),
+      headerName: t('Field Name'),
       flex: 1,
       editable: false
     }, 

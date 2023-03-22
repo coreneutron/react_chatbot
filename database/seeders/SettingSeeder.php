@@ -18,12 +18,12 @@ class SettingSeeder extends Seeder
             [
                 [
                     'name' => 'ヘッダーのタイトル',
-                    'value' => 'This is great chat bot!',
+                    'value' => 'チャットページにようこそ',
                     'type' => 'text'
                 ], 
                 [
                     'name' => 'ヘッダー文章',
-                    'value' => 'I am very happy to develop this auto chat app!',
+                    'value' => 'HP組み込みシナリオ型のチャットボットシステムです。',
                     'type' => 'text'
                 ], 
                 [

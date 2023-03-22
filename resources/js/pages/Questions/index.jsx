@@ -153,7 +153,10 @@ const Question = () => {
   }
 
   const goCreatePage = (id) => {
-    navigate(`/question/create/${id}`);
+    if(id)
+      navigate(`/question/create/${id}`);
+    else
+      dispatch(showToast('error', t('Please select scenario')));
   }
 
   const goEditPage = (id) => {

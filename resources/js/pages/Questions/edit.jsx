@@ -173,7 +173,7 @@ const QuestionEdit = () => {
                         question.type === 'text' &&
                         <>
                           <FormControl fullWidth margin="normal">
-                            <TextField id="outlined-basic" label="content" name="content"  multiline rows={5} value={question.content} onChange={handleChange} />
+                            <TextField id="outlined-basic" label={t('Content')} name="content"  multiline rows={5} value={question.content} onChange={handleChange} />
                           </FormControl>
                           <FormControl fullWidth margin="normal">
                             <InputLabel id="demo-simple-select-label">{t('Next Question Id')}</InputLabel>
