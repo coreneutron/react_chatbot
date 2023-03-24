@@ -240,6 +240,14 @@ class ScenarioController extends Controller
     }
 
     public function makeQuestionJson($id){
+        $dupFlg = false;
+        foreach($this->story as $item){
+            if($id == $item['id'])
+                $dupFlg = true;
+        }
+        if($dupFlg)
+            return ;
+
         $data = Question::where('id', $id)->first();
         
         if(!is_null($data['next_question_id'])){
@@ -255,8 +263,19 @@ class ScenarioController extends Controller
         else {
             if($data['type'] == 'text')
                 array_push($this->story, array('id'=> $data['id'], 'message'=> $data['content']));
-            if($data['type'] == 'option')
-                $this->makeOptionJson($data);
+            if($data['type'] == 'option'){
+                // $dupFlg = false;
+                // foreach($this->story as $item){
+                //     if($item['id'] == $data['id'])
+                //         $dupFlg = true;
+                // }
+                // if(!$dupFlg)
+                //     return $this->makeOptionJson($data);
+                // else 
+                //     return ;
+
+                return $this->makeOptionJson($data);
+            }
             if($data['type'] == 'input')
                 array_push($this->story, array('id'=> $data['id'], 'user'=> true));
         }
