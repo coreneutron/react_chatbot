@@ -95,7 +95,7 @@ const QuestionCreate = () => {
       const res = await agent.common.createQuestion(question, options);
       if (res.data.success) {
         dispatch(showToast('success', t('Successfully created')))
-        setQuestion(res.data.data);
+        setQuestion({...question, next_question_id: '', option_id: '', type: 'text', content: ''});
       }
       dispatch(endAction());
     } catch (error) {
@@ -229,8 +229,13 @@ const QuestionCreate = () => {
                               value={question.next_question_id}
                               onChange={handleChange}
                             >
+                              <MenuItem value='' key=''>None</MenuItem>
                               {
-                                  <MenuItem value='' key=''></MenuItem>
+                                questions.map((item, index )=> {
+                                  return (
+                                    <MenuItem value={item.id} key={index}>{item.id}</MenuItem>
+                                  )
+                                })
                               }
                             </Select>
                           </FormControl>

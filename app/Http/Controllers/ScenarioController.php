@@ -227,6 +227,8 @@ class ScenarioController extends Controller
                     array_push($this->story, array('id'=> $question['id'], 'message'=> $question['content']));
                 if($question['type'] == 'option')
                     $this->makeOptionJson($question);
+                if($question['type'] == 'input')
+                    array_push($this->story, array('id'=> $question['id'], 'user'=> true));
             }
         } else {
             if(isset($scenario['title']) && isset($scenario['message'])){
@@ -241,15 +243,22 @@ class ScenarioController extends Controller
         $data = Question::where('id', $id)->first();
         
         if(!is_null($data['next_question_id'])){
-            array_push($this->story, array('id'=> $data['id'], 'message'=> $data['content'], 'trigger'=>$data['next_question_id']));
-            return $this->makeQuestionJson($data['next_question_id']);
+            if($data['type'] == 'text'){
+                array_push($this->story, array('id'=> $data['id'], 'message'=> $data['content'], 'trigger'=>$data['next_question_id']));
+                return $this->makeQuestionJson($data['next_question_id']);
+            }
+            if($data['type'] == 'input'){
+                array_push($this->story, array('id'=> $data['id'], 'user'=> true, 'trigger'=>$data['next_question_id']));
+                return $this->makeQuestionJson($data['next_question_id']);
+            }
         } 
         else {
-            if($data['type'] == 'text' || $data['type'] == 'input' ){
+            if($data['type'] == 'text')
                 array_push($this->story, array('id'=> $data['id'], 'message'=> $data['content']));
-            }
             if($data['type'] == 'option')
                 $this->makeOptionJson($data);
+            if($data['type'] == 'input')
+                array_push($this->story, array('id'=> $data['id'], 'user'=> true));
         }
     }
     public function makeOptionJson($question){

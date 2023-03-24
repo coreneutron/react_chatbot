@@ -63,19 +63,20 @@ class QuestionController extends Controller
 
         $question = $request->question;
         $options = $request->options;
-
-        $question = Question::create($question);
+        if($question['option_id'])
+            $question = Question::updateOrCreate($question);
+        else 
+            $question = Question::create($question);
         
         if(count($options) > 0){
             foreach ($options as $item) {
-                Option::create([
+                Option::updateOrCreate([
                     'question_id' => $question->id, 
                     'content' => $item['content'], 
                     'next_question_id' => $item['next_question_id']
                 ]); 
             }
         }
-
 
         return response()->json([
             'success' => true,
@@ -132,7 +133,7 @@ class QuestionController extends Controller
             }
         }
 
-        if($request->question['type'] == 'text' || $request->question['type'] == 'text' ){
+        if($request->question['type'] == 'text' || $request->question['type'] == 'input' ){
             $question->update($request->question);
         }
 
