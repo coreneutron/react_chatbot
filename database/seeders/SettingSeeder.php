@@ -40,6 +40,11 @@ class SettingSeeder extends Seeder
                     'name' => '背景色',
                     'value' => '#ffffff',
                     'type' => 'color'
+                ],
+                [
+                    'name' => 'icon画像',
+                    'value' => '/avatar/avatar.jpg',
+                    'type' => 'image'
                 ]
             ]
         );

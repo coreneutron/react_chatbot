@@ -158,7 +158,14 @@ const commonApi = {
                 Authorization: "Bearer " + localStorage.getItem("token"),
             },
         }),
-    
+    updateSettingBotAvatar: (id, setting) =>
+        axios.post(`${API_URL}/updateSettingBotAvatar`, setting,
+        {
+            headers: {
+                'content-type': 'multipart/form-data',
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+        }),
     getStory: () =>
         axios.get(`${API_URL}/getStory`, 
         {

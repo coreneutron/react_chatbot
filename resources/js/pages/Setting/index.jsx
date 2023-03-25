@@ -51,6 +51,8 @@ const Setting = () => {
       renderCell: ( params ) => {
         if(params.row.type == 'color')
           return  <input type="color" value={params.row.value} disabled />
+        else if(params.row.type == 'image')
+          return  <img src={'/avatar/' + params.row.value} style={{height: '45px', borderRadius:'50%'}} />
         else 
           return <div>{params.row.value}</div>;
       },

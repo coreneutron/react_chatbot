@@ -7,6 +7,8 @@ import { ThemeProvider } from 'styled-components'
 import { startAction, endAction, showToast } from '../../actions/common'
 import agent from '../../api'
 
+
+
 import { useLaravelReactI18n } from 'laravel-react-i18n'
 
 const Chat = () => {
@@ -24,7 +26,8 @@ const Chat = () => {
     botBubbleColor: '#EEEEEE',
     botFontColor: '#314141',
     userBubbleColor: '#fff',
-    userFontColor: '#4a4a4a'
+    userFontColor: '#4a4a4a',
+    botAvatar: ''
   });
   
   // all available config props
@@ -49,7 +52,7 @@ const Chat = () => {
       const res = await agent.common.getSettings();
       if (res.data.success) {
         let data = res.data.data;
-        setTheme({...theme, background:data[4]['value'], botFontColor:data[3]['value'], headerBgColor:data[2]['value'] })
+        setTheme({...theme, background:data[4]['value'], botFontColor:data[3]['value'], headerBgColor:data[2]['value'], botAvatar:'avatar/' + data[5]['value']})
         setConfig({...config, headerTitle:data[0]['value']})
       }
       dispatch(endAction());
@@ -72,7 +75,6 @@ const Chat = () => {
       const res = await agent.common.getStory();
       if (res.data.success) {
         setStory(res.data.data)
-        console.log(res.data.data);
       }
       dispatch(endAction());
     } catch (error) {
@@ -94,11 +96,10 @@ const Chat = () => {
       message: 'Hello!',
       trigger: 'q-firstname',
     },
-    /* Paste */
     {
       id: 'q-firstname',
       message: 'What is your  name?',
-      trigger: 'firstname',
+      trigger: 'welcome',
     },
     {
       id: 'firstname',
@@ -156,7 +157,6 @@ const Chat = () => {
         { value: 1, label: 'Property Tax ?', trigger: '4' },
         { value: 2, label: ' Professional Tax ?', trigger: '3' },
         { value: 3, label: 'Election Department', trigger: '5' },
-        { value: 4, label: 'More Information', trigger: '6' },
       ],
     },
     {
@@ -164,20 +164,22 @@ const Chat = () => {
       component: '',
       asMessage: true,
       end: true,
-    },
+    }
   ]
 
   return (
     <ThemeProvider theme={theme}>
-    {
-      story.length > 0 &&
+      {
+        story.length > 0 && theme.botAvatar &&
         <ChatBot
-        speechSynthesis={{ enable: true, lang: 'en-US' }}
-        recognitionEnable={true}
-        steps={story.length> 0 ? story : exam_data }
-        {...config}
-        />
-    }
+          speechSynthesis={{ enable: true, lang: 'en-US' }}
+          recognitionEnable={true}
+          botAvatar={theme.botAvatar}
+          avatarStyle={{borderRadius:'50%'}}
+          steps={ story }
+          {...config}
+          />
+      }
     </ThemeProvider>
   )
 }

@@ -24,6 +24,13 @@ const SettingEdit = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const fileInputField = useRef(null);
+  const [file, setFile] = useState();
+  
+  const [preview, setPreview] = useState({
+    src: ''
+  });
+
   const [setting, setSetting] = useState({
     id: '',
     name: '',
@@ -41,8 +48,11 @@ const SettingEdit = () => {
     dispatch(startAction())
     try {
       const res = await agent.common.getSetting(id);
-      if (res.data.success) 
+      if (res.data.success){
         setSetting(res.data.data);
+        if(res.data.data.type == 'image')
+          setPreview({...preview, src:'/avatar/' + res.data.data.value})
+      }
       dispatch(endAction());
     } catch (error) {
       if (error.response.status >= 400 && error.response.status <= 500) {
@@ -62,10 +72,21 @@ const SettingEdit = () => {
   }
 
   const settingUpdate = async() => {
-    console.log(setting);
     dispatch(startAction())
     try {
-      const res = await agent.common.updateSetting(setting.id, setting);
+      let res;
+      if(setting.type == 'image'){
+        const formData = new FormData();
+        formData.append("id", setting.id);
+        formData.append("name", setting.name);
+        formData.append("value", setting.value);
+        formData.append("type", setting.type);
+        if(file)
+          formData.append("file", file);
+        res = await agent.common.updateSettingBotAvatar(setting.id, formData);
+      } else {
+        res = await agent.common.updateSetting(setting.id, setting);
+      }
       if (res.data.success) {
         dispatch(showToast('success', t('Successfully created')))
         setSetting(res.data.data);
@@ -83,6 +104,28 @@ const SettingEdit = () => {
       }
     }
   }
+
+  const uploadImage = () => {
+    fileInputField.current.click();
+  }
+
+  const fileHandler = event => {
+    const { files } = event.target;
+    setFile(files[0]);
+    setPreview(
+      files.length
+        ? 
+        {
+          src: URL.createObjectURL(files[0]),
+          alt: files[0].name
+        }
+        : 
+        {
+          src: '',
+          alt: ''
+        }
+    );
+  };
 
   const goBack = () => {
     navigate('/settings');
@@ -119,6 +162,18 @@ const SettingEdit = () => {
                         <div style={{display: 'flex', marginTop: '10px'}}>
                           <TextField id="outlined-basic" style={{marginRight: '20px'}} label="Title" name="title" value={setting.name} disabled />
                           <input type="color" style={{height: '55px'}} name="value" value={setting.value} onChange={handleChange} />
+                        </div>
+                      </>
+                    }
+                   {
+                      setting.type === 'image' &&
+                      <>
+                        <div className="text-center">
+                          <div className="cursor-pointer" onClick={()=>uploadImage()} >
+                            <FileUploadIcon />{t('File Upload')}
+                          </div>
+                          <input className="d-none" accept="image/*" ref={fileInputField} type="file" onChange={fileHandler} />
+                          <img src={preview.src} alt="avatar image" style={{width: '100px', height: '100px', borderRadius: '50%'}} onClick={()=>uploadImage()}/>
                         </div>
                       </>
                     }

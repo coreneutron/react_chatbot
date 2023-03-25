@@ -37,7 +37,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/updateScenarioStatus', [ScenarioController::class, 'updateScenarioStatus']);
     Route::apiResource('questions', QuestionController::class);
     Route::post('/getQuestionsById', [QuestionController::class, 'getQuestionsById']);
-    
+    Route::post('/updateSettingBotAvatar', [SettingController::class, 'updateSettingBotAvatar']);
+
     Route::post('/changePwd', [AuthController::class, 'changePwd']);
     Route::get('/logout', [AuthController::class, 'logout']);
 
