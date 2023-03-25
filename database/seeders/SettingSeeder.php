@@ -43,7 +43,7 @@ class SettingSeeder extends Seeder
                 ],
                 [
                     'name' => 'icon画像',
-                    'value' => '/avatar/avatar.jpg',
+                    'value' => 'avatar.jpg',
                     'type' => 'image'
                 ]
             ]
