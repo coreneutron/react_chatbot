@@ -48,7 +48,7 @@ body {
     font-size: 14px;
     color: #888;
     font-weight: 400;
-    background: #f4f7fa;
+    background: transparent;
     position: relative;
     overflow: hidden;
 }
@@ -163,4 +163,39 @@ body {
 
 .cYWyjJ {
     border-radius: 50%;
+}
+
+.color-white {
+    color: white;
+}
+
+.margin-0 {
+    margin: 0px;
+}
+
+.fs-15{
+    font-size: 15px;
+}
+
+.header-bar {
+    -webkit-box-align: center;
+    align-items: center;
+    background: rgb(22, 47, 92);
+    color: rgb(255, 255, 255);
+    display: flex;
+    fill: rgb(255, 255, 255);
+    height: 56px;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 0px 10px;
+}
+
+.open-chatbox {
+    z-index: 10;
+    position: fixed;
+    bottom: 1rem;
+    left: auto;
+    right: 0.1rem;
+    cursor: pointer;
+    display: block;
 }

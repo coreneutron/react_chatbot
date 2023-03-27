@@ -7,15 +7,16 @@ import { ThemeProvider } from 'styled-components'
 import { startAction, endAction, showToast } from '../../actions/common'
 import agent from '../../api'
 
-
-
 import { useLaravelReactI18n } from 'laravel-react-i18n'
+import { TRUE } from "sass";
 
 const Chat = () => {
   const { t, tChoice } = useLaravelReactI18n();
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const [open, setOpen] = useState(true);
 
   const [theme, setTheme] = useState({
     background: '#FFFFFF',
@@ -88,6 +89,10 @@ const Chat = () => {
         }
       }
     }
+  }
+
+  const handeChatBox = () => {
+    setOpen(!open);
   }
 
   const exam_data =  [
@@ -167,19 +172,37 @@ const Chat = () => {
     }
   ]
 
+  const headerComponent = (
+    <div>
+      <div className="header-bar">
+        <h2 className="color-white fs-15 margin-0">チャットページにようこそ</h2>
+        <div className="cursor-pointer" onClick={handeChatBox}>
+          <img src={'/assets/image/close.svg'} style={{height: '30px'}} />
+        </div>
+      </div>
+    </div>
+  )
+
   return (
     <ThemeProvider theme={theme}>
       {
-        story.length > 0 && theme.botAvatar &&
-        <ChatBot
-          speechSynthesis={{ enable: true, lang: 'en-US' }}
-          recognitionEnable={true}
-          botAvatar={theme.botAvatar}
-          avatarStyle={{borderRadius:'50%'}}
-          steps={ story }
-          {...config}
-          />
+        open ?
+          story.length > 0 && theme.botAvatar &&
+          <ChatBot
+            speechSynthesis={{ enable: true, lang: 'en-US' }}
+            recognitionEnable={true}
+            botAvatar={theme.botAvatar}
+            avatarStyle={{borderRadius:'50%'}}
+            headerComponent={headerComponent}
+            steps={ story }
+            {...config}
+            />
+        :
+        <div className="cursor-pointer open-chatbox" onClick={handeChatBox}>
+          <img src={'/assets/image/open.svg'} style={{height: '60px'}} />
+        </div>
       }
+      
     </ThemeProvider>
   )
 }
